@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لاگ مسیر تحلیل سؤال اول</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f7f7f5;
+      --surface: #ffffff;
+      --text: #242424;
+      --muted: #6b6b6b;
+      --border: #deded8;
+      --accent: #315c87;
+      --user: #f2f7fc;
+      --assistant: #f7f4ed;
+      --open: #fff8df;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 40px auto;
+    }
+
+    header,
+    section,
+    article {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    header,
+    section {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child {
+      margin-bottom: 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .entry {
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .user {
+      background: var(--user);
+      border-right: 4px solid #5b8db8;
+    }
+
+    .assistant {
+      background: var(--assistant);
+      border-right: 4px solid #96764a;
+    }
+
+    .open {
+      background: var(--open);
+      border-right: 4px solid #d3a72e;
+    }
+
+    .label {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 10px 16px;
+      border-right: 3px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    code,
+    pre {
+      direction: ltr;
+      text-align: left;
+      font-family: Consolas, monospace;
+    }
+
+    code {
+      background: #ecece8;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 14px;
+      border-radius: 7px;
+      background: #272822;
+      color: #f8f8f2;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid var(--border);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f0ec;
+    }
+
+    .final-analysis {
+      min-height: 180px;
+      border: 2px dashed var(--border);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+      }
+
+      header,
+      section,
+      article {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>لاگ مسیر تحلیل سؤال اول</h1>
+      <p>این فایل مسیر فکری طی‌شده برای پاسخ‌دادن به «سؤال ۱ — Constitution و حاکمیت معماری» را ثبت می‌کند. هدف آن نمایش سؤال‌ها، پاسخ‌ها، ابهام‌ها و اصلاح تدریجی درک مسئله است؛ نه صرفاً نگهداری پاسخ نهایی.</p>
+      <p class="meta">روش گفتگو: مصاحبهٔ پرسش‌محور با Grill-me و توقف آموزشی در نقاط مبهم</p>
+    </header>
+
+    <section id="source-question">
+      <h2>صورت سؤال</h2>
+      <blockquote>
+        تیم تصمیم گرفته تمام Business Logic در لایهٔ Domain یا Application قرار بگیرد و API فقط مسئول دریافت درخواست و ارائهٔ پاسخ باشد. Coding Agent قابلیتی را پیاده‌سازی کرده و همهٔ Testها موفق شده‌اند؛ اما بخشی از Business Logic مستقیماً داخل Controller یا Endpoint نوشته شده است.
+      </blockquote>
+      <ol>
+        <li>چه تفاوتی بین موفقیت Testها و رعایت اصول معماری وجود دارد؟</li>
+        <li>قاعدهٔ جداسازی مسئولیت‌ها باید در Constitution، Plan یا Tasks ثبت شود؟ چرا؟</li>
+        <li>چگونه می‌توان در توسعه‌های بعدی از تکرار این مشکل جلوگیری کرد؟</li>
+      </ol>
+    </section>
+
+    <section id="log">
+      <h2>لاگ گفتگو و تحلیل</h2>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۱ — بررسی معنای موفقیت Testها</h3>
+        <p><span class="label">پرسش:</span> آیا موفق‌شدن Testها فقط رفتارهایی را تأیید می‌کند که واقعاً آزموده شده‌اند و لزوماً نشان نمی‌دهد ساختار کد و مرزبندی لایه‌ها درست است؟</p>
+        <p><span class="label">پیشنهاد اولیه:</span> بله؛ مگر اینکه آزمون‌های معماری مستقلی وجود داشته باشند که وابستگی‌ها و محل قرارگیری Business Logic را کنترل کنند.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>پاسخ کاربر</h3>
+        <p><span class="label">پاسخ:</span> موافقم.</p>
+        <p><span class="label">نتیجهٔ موقت:</span> موفقیت Testهای رفتاری برای اثبات رعایت معماری کافی نیست.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۲ — پرسش دربارهٔ ماهیت قاعدهٔ معماری</h3>
+        <p><span class="label">پرسش:</span> آیا «نبودن Business Logic در Controller یا Endpoint» یک قاعدهٔ پایدار و سراسری پروژه است، نه تصمیمی موقت و مخصوص یک Feature؟</p>
+        <p><span class="label">پیشنهاد اولیه:</span> بله؛ چون این قاعده باید در تمام قابلیت‌های فعلی و آینده رعایت شود.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>ابهام شناسایی‌شده</h3>
+        <p>هنوز درکی از اتفاقی که افتاده ندارم. چیزی که می‌بینم این است که Agent خودش تصمیم گرفته بخشی از Business Logic را داخل یکی از این بخش‌ها ببرد؛ اما نمی‌دانم این تصمیم درست است یا غلط و اساساً این معماری چیست.</p>
+        <p><span class="label">نتیجه:</span> ادامهٔ مصاحبه متوقف شد تا مفاهیم پایهٔ معماری لایه‌ای، Business Logic و مسئولیت Controller روشن شوند.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۳ — توضیح آموزشی معماری</h3>
+        <p><span class="label">تعریف کاری معماری:</span> معماری در این مسئله یعنی تقسیم مسئولیت میان بخش‌های سیستم و تعیین اینکه هر نوع تصمیم در کدام بخش گرفته شود.</p>
+        <p><span class="label">تشبیه رستوران:</span> Controller مانند پیشخدمت است؛ سفارش را می‌گیرد و نتیجه را تحویل می‌دهد. Application و Domain مانند آشپزخانه‌اند؛ قواعد آماده‌سازی و تصمیم‌های اصلی در آنجا اجرا می‌شوند. ممکن است پیشخدمت خودش غذا را درست کند و غذای صحیحی نیز تحویل دهد، اما تقسیم مسئولیت نقض شده است.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>لایه</th>
+              <th>مسئولیت اصلی</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>API / Controller</td>
+              <td>خواندن HTTP Request، استخراج شناسه و کاربر، فراخوانی Use Case و تبدیل نتیجه به HTTP Response</td>
+            </tr>
+            <tr>
+              <td>Application</td>
+              <td>اجرای Use Case و هماهنگی جریان عملیات، Repository و Transaction</td>
+            </tr>
+            <tr>
+              <td>Domain</td>
+              <td>قواعد اصلی کسب‌وکار، Invariantها و انتقال وضعیت‌ها</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>نمونه‌هایی از Business Logic در ChangeFlow:</p>
+        <ul>
+          <li>فقط Reviewer اجازهٔ تأیید درخواست را دارد.</li>
+          <li>ثبت‌کننده نباید درخواست خودش را تأیید کند.</li>
+          <li>فقط درخواست <code>PendingReview</code> قابل تأیید است.</li>
+          <li>تأیید موفق، وضعیت را به <code>Approved</code> تغییر می‌دهد.</li>
+        </ul>
+
+        <p><span class="label">نمونهٔ نامناسب:</span></p>
+        <pre><code>Controller:
+  request = database.load(id)
+
+  if request.status != PendingReview:
+      reject
+
+  if request.requesterId == currentUser.id:
+      reject
+
+  request.status = Approved
+  database.save(request)</code></pre>
+
+        <p>در این حالت رفتار HTTP ممکن است درست باشد و Testها موفق شوند؛ ولی مسیرهایی مانند Message Queue، CLI یا Background Job می‌توانند Controller را دور بزنند و همان قواعد را اجرا نکنند.</p>
+
+        <p><span class="label">شکل مناسب‌تر:</span></p>
+        <pre><code>Controller:
+  result = approveChangeRequest.execute(id, currentUser)
+  return mapResultToHttp(result)
+
+Application / Domain:
+  check reviewer permission
+  prevent self-approval
+  check PendingReview status
+  transition request to Approved
+  save changes</code></pre>
+
+        <p><span class="label">جمع‌بندی این مرحله:</span> Agent معماری جدیدی انتخاب نکرده است. تیم قبلاً مرز معماری را تعیین کرده بود و Agent با قراردادن قواعد کسب‌وکار در Controller آن مرز را نقض کرده است؛ حتی اگر خروجی قابلیت در Testهای موجود صحیح باشد.</p>
+      </article>
+
+      <article class="entry open">
+        <h3>مرحلهٔ جاری — پرسش‌های باز</h3>
+        <p><span class="label">پرسش باز ۱:</span> آیا اکنون قاعدهٔ زیر را یک قانون پایدار و سراسری پروژه می‌دانیم؟</p>
+        <blockquote>Controller فقط ورودی و خروجی HTTP را مدیریت کند و تصمیم‌های کسب‌وکار در Application یا Domain گرفته شوند.</blockquote>
+        <p>در صورت موافقت، باید توضیح داده شود چرا این قانون فقط مخصوص Endpoint تأیید درخواست نیست.</p>
+
+        <p><span class="label">تمرین دسته‌بندی:</span></p>
+        <ol>
+          <li>خواندن <code>requestId</code> از URL: <strong>در انتظار پاسخ</strong></li>
+          <li>جلوگیری از تأیید درخواست توسط ثبت‌کنندهٔ همان درخواست: <strong>در انتظار پاسخ</strong></li>
+          <li>تبدیل خطای «وضعیت نامعتبر» به HTTP <code>409</code>: <strong>در انتظار پاسخ</strong></li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3>درخواست شفاف‌سازی</h3>
+        <p>کاربر درخواست کرد سؤال‌ها با بیان واضح‌تر و مثال ملموس‌تری مطرح شوند.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۴ — بازنویسی ساده‌تر پرسش‌ها</h3>
+        <p><span class="label">سناریو:</span> کاربری از طریق یک درخواست HTTP می‌خواهد Change Request شمارهٔ <code>42</code> را تأیید کند.</p>
+        <ol>
+          <li>
+            عدد <code>42</code> داخل URL قرار دارد. کدام بخش باید این عدد را از URL بخواند؟
+            <ul>
+              <li>گزینهٔ الف: API / Controller</li>
+              <li>گزینهٔ ب: Application / Domain</li>
+            </ul>
+          </li>
+          <li>
+            سیستم باید بررسی کند که کاربر، ثبت‌کنندهٔ همین Change Request نباشد؛ چون Self-Approval ممنوع است. این بررسی باید در کدام بخش انجام شود؟
+            <ul>
+              <li>گزینهٔ الف: API / Controller</li>
+              <li>گزینهٔ ب: Application / Domain</li>
+            </ul>
+          </li>
+          <li>
+            Application یا Domain اعلام می‌کند درخواست به‌دلیل وضعیت نامعتبر قابل تأیید نیست. کدام بخش باید این نتیجه را به پاسخ HTTP با کد <code>409</code> تبدیل کند؟
+            <ul>
+              <li>گزینهٔ الف: API / Controller</li>
+              <li>گزینهٔ ب: Application / Domain</li>
+            </ul>
+          </li>
+        </ol>
+        <p><span class="label">وضعیت:</span> در انتظار پاسخ کاربر به‌شکل «۱: الف، ۲: ب، ۳: الف» و توضیح دلیل هر انتخاب.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>پاسخ کاربر به تمرین دسته‌بندی</h3>
+        <ol>
+          <li>خواندن شناسه از URL: گزینهٔ الف، API / Controller</li>
+          <li>جلوگیری از Self-Approval: گزینهٔ ب، Application / Domain</li>
+          <li>تبدیل خطا: به‌نظر کاربر Application نتیجه را تبدیل می‌کند و به Controller تحویل می‌دهد.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۵ — بازخورد و تفکیک تصمیم کسب‌وکار از HTTP</h3>
+        <p><span class="label">پاسخ ۱:</span> درست است. URL بخشی از قرارداد HTTP است؛ بنابراین API / Controller باید شناسهٔ <code>42</code> را از آن استخراج کند.</p>
+        <p><span class="label">پاسخ ۲:</span> درست است. ممنوعیت Self-Approval یک قاعدهٔ کسب‌وکار است و باید مستقل از روش ورود درخواست، در Application یا Domain اعمال شود.</p>
+        <p><span class="label">پاسخ ۳:</span> ایدهٔ کلی نزدیک است، اما عملیات باید به دو مسئولیت تقسیم شود:</p>
+        <ol>
+          <li>Application / Domain نتیجه‌ای مستقل از HTTP مانند <code>InvalidRequestState</code> یا <code>ApprovalNotAllowed</code> تولید می‌کند.</li>
+          <li>API / Controller آن نتیجه را به پاسخ مخصوص HTTP، برای مثال <code>409 Conflict</code>، تبدیل می‌کند.</li>
+        </ol>
+        <p>اگر Application مستقیماً کد <code>409</code> تولید کند، از HTTP آگاه و به آن وابسته می‌شود. در آن صورت استفاده از همان Use Case از طریق CLI، Message Queue یا یک رابط غیر HTTP دشوارتر خواهد شد.</p>
+        <p><span class="label">نتیجهٔ یادگیری:</span> Application دربارهٔ معنای کسب‌وکاری شکست تصمیم می‌گیرد؛ API دربارهٔ نمایش آن شکست در پروتکل HTTP تصمیم می‌گیرد.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>تصمیم کاربر دربارهٔ Self-Approval</h3>
+        <blockquote>تحت هیچ شرایطی هیچ‌کس نباید درخواست خودش را تأیید کند. این قانون مطلق ماست.</blockquote>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۶ — شناسایی Invariant کسب‌وکار</h3>
+        <p>ممنوعیت Self-Approval به‌عنوان یک Invariant کسب‌وکار تثبیت شد: این قانون مستقل از نقش‌های دیگر کاربر، مسیر ورود درخواست و فناوری رابط باید همواره اجرا شود.</p>
+        <p>در این تحلیل دو قانون متفاوت وجود دارد:</p>
+        <ol>
+          <li><strong>قانون کسب‌وکار:</strong> هیچ‌کس نباید درخواست خودش را تأیید کند.</li>
+          <li><strong>قانون معماری:</strong> قواعد کسب‌وکار باید در Application یا Domain اجرا شوند، نه در Controller.</li>
+        </ol>
+        <p>قانون اول می‌گوید سیستم چه رفتاری داشته باشد؛ قانون دوم می‌گوید کد آن رفتار در کدام بخش سیستم قرار بگیرد.</p>
+        <p><span class="label">پرسش باز بعدی:</span> آیا قانون معماری دوم نیز باید در تمام Featureهای فعلی و آینده رعایت شود، یا فقط برای عملیات تأیید درخواست است؟</p>
+      </article>
+
+      <article class="entry user">
+        <h3>توافق دربارهٔ دامنهٔ قانون معماری</h3>
+        <p>کاربر پذیرفت که قانون «Business Logic باید در Application یا Domain باشد» برای تمام قابلیت‌های فعلی و آیندهٔ پروژه اجرا شود.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۷ — آماده‌سازی تصمیم دربارهٔ Artifact مناسب</h3>
+        <p>قاعدهٔ جداسازی Business Logic اکنون به‌عنوان یک Invariant معماری سراسری شناخته می‌شود. تصمیم بعدی تعیین نقش سه Artifact است:</p>
+        <ul>
+          <li><strong>Constitution:</strong> محل اصول پایدار و الزام‌آور کل پروژه.</li>
+          <li><strong>Plan:</strong> توضیح نحوهٔ رعایت اصول در طراحی یک Feature مشخص.</li>
+          <li><strong>Tasks:</strong> تبدیل طراحی به کارهای اجرایی و قابل پیگیری.</li>
+        </ul>
+        <p><span class="label">پرسش باز:</span> مرجع اصلی و دائمی این قانون باید کدام Artifact باشد؟</p>
+      </article>
+
+      <article class="entry user">
+        <h3>توافق دربارهٔ Artifactها و پرسش تکمیلی</h3>
+        <p>کاربر پذیرفت که Constitution مرجع اصلی قانون معماری باشد، Plan نحوهٔ رعایت آن را در Feature توضیح دهد و Tasks کارهای اجرایی را ثبت کند.</p>
+        <blockquote>تفاوت «معماری» با «اصول» چیست؟ معماری پروژه باید در Constitution ثبت شود یا به‌شکل دیگری مستند می‌شود؟</blockquote>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۸ — تفاوت اصول با معماری</h3>
+        <p><strong>اصل</strong> یک راهنمای پایدار یا محدودیت برای تصمیم‌گیری است؛ <strong>معماری</strong> ساختار واقعی حاصل از آن تصمیم‌هاست: اجزا، مسئولیت‌ها، وابستگی‌ها و جریان ارتباط میان آن‌ها.</p>
+        <p><span class="label">تشبیه:</span> Constitution مانند ضوابط ساخت‌وساز است؛ معماری مانند نقشهٔ واقعی ساختمان. ضابطه می‌گوید خروج اضطراری الزامی است، ولی نقشه نشان می‌دهد خروجی در کجا و با چه مسیری ساخته می‌شود.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>نوع مطلب</th>
+              <th>نمونه</th>
+              <th>محل اصلی ثبت</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>اصل یا محدودیت پایدار</td>
+              <td>Business Logic نباید به HTTP وابسته باشد.</td>
+              <td>Constitution</td>
+            </tr>
+            <tr>
+              <td>ساختار معماری</td>
+              <td>سیستم دارای لایه‌های API، Application، Domain و Infrastructure است و جهت وابستگی‌ها مشخص است.</td>
+              <td>Plan</td>
+            </tr>
+            <tr>
+              <td>تصمیم معماری همراه با دلیل</td>
+              <td>انتخاب Modular Monolith به‌جای Microservices یا انتخاب روش Persistence.</td>
+              <td>Research و Plan؛ در پروژه‌های دیگر ممکن است ADR نیز استفاده شود.</td>
+            </tr>
+            <tr>
+              <td>جزئیات قرارداد</td>
+              <td>Endpointها، مدل داده و شکل Request و Response.</td>
+              <td>contracts، data-model و Plan</td>
+            </tr>
+            <tr>
+              <td>کار اجرایی</td>
+              <td>ایجاد Use Case تأیید و انتقال منطق از Controller.</td>
+              <td>Tasks</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Constitution می‌تواند یک قید معماری مشخص را ثبت کند، اما بهتر است به نقشهٔ کامل و پرجزئیات معماری تبدیل نشود. فقط تصمیمی باید وارد Constitution شود که سراسری، پایدار و الزام‌آور باشد و تغییر آن نیازمند بازنگری رسمی اصل پروژه باشد.</p>
+        <p>در نتیجه، عبارت «Business Logic در Application یا Domain قرار بگیرد» می‌تواند یک اصل معماری در Constitution باشد؛ اما جزئیاتی مانند تعداد پروژه‌ها، نام ماژول‌ها، الگوی Repository یا انتخاب دیتابیس معمولاً در Plan و Research مستند می‌شوند.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>تأیید دسته‌بندی مستندات</h3>
+        <p>کاربر دسته‌بندی زیر را پذیرفت:</p>
+        <ol>
+          <li>نبودن Business Logic در Controller: اصل معماری در Constitution</li>
+          <li>ساختار لایه‌های API، Application، Domain و Infrastructure: معماری در Plan</li>
+          <li>انتخاب PostgreSQL: تصمیم فنی در Research و Plan</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant open">
+        <h3>مرحلهٔ ۹ — ورود به بحث جلوگیری از تکرار تخلف</h3>
+        <p>دو تصمیم بعدی باید مشخص شوند:</p>
+        <ol>
+          <li>آیا ثبت قاعده در Constitution به‌تنهایی برای جلوگیری از تکرار کافی است؟</li>
+          <li>آیا پیشگیری باید ترکیبی از مستندسازی، Plan/Tasks، کنترل خودکار و Code Review باشد؟</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3>توافق دربارهٔ ناکافی‌بودن مستندسازی تنها</h3>
+        <p>کاربر پذیرفت که ثبت قاعده در Constitution لازم است، اما بدون تبدیل آن به طراحی، کار اجرایی و کنترل رعایت، به‌تنهایی از تکرار تخلف جلوگیری نمی‌کند.</p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3>مرحلهٔ ۱۰ — گزینه‌های پیشگیری چندلایه</h3>
+        <ol>
+          <li><strong>پیش از پیاده‌سازی:</strong> Plan محل اجرای قواعد کسب‌وکار را مشخص کند و Tasks کار صریحی برای ایجاد Use Case و Controller نازک داشته باشد.</li>
+          <li><strong>حین ادغام:</strong> Architecture Test یا قانون وابستگی در CI، وابستگی‌های ممنوع میان لایه‌ها را تشخیص دهد.</li>
+          <li><strong>در بازبینی:</strong> Code Review با Checklist بررسی کند که Controller فقط ورودی، فراخوانی Application و نگاشت پاسخ را انجام می‌دهد.</li>
+        </ol>
+        <p>کنترل خودکار به‌تنهایی همیشه قادر به تشخیص معنای Business Logic نیست؛ بنابراین بازبینی انسانی مکمل آن است.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>توافق دربارهٔ راهکار پیشگیری</h3>
+        <p>کاربر هر سه لایهٔ پیشگیری را پذیرفت: انعکاس قانون در Plan و Tasks، کنترل خودکار معماری در CI و بازبینی انسانی با Checklist.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3>مرحلهٔ ۱۱ — جمع‌بندی پیشنهادی پیش از تحلیل نهایی</h3>
+        <ol>
+          <li>موفقیت Testهای رفتاری نشان می‌دهد سناریوهای آزموده‌شده خروجی مورد انتظار دارند؛ اما به‌تنهایی محل قرارگیری منطق و رعایت مرزهای معماری را اثبات نمی‌کند.</li>
+          <li>جداسازی Business Logic از API یک اصل معماری پایدار است؛ بنابراین مرجع الزام‌آور آن Constitution است. Plan نحوهٔ اعمال اصل در Feature و Tasks کارهای اجرایی آن را ثبت می‌کنند.</li>
+          <li>جلوگیری از تکرار تخلف به دفاع چندلایه نیاز دارد: قانون مکتوب، طراحی قابل ردیابی، Taskهای صریح، Architecture Test در CI و Code Review انسانی.</li>
+        </ol>
+        <p><span class="label">وضعیت:</span> شاخه‌های اصلی سؤال پوشش داده شده‌اند و ثبت تحلیل نهایی منتظر تأیید کاربر دربارهٔ رسیدن به درک مشترک است.</p>
+      </article>
+
+      <article class="entry user">
+        <h3>تأیید نهایی کاربر</h3>
+        <p>کاربر رسیدن به درک مشترک را تأیید کرد و اجازه داد تحلیل نهایی ثبت شود.</p>
+      </article>
+    </section>
+
+    <section id="final-analysis" class="final-analysis">
+      <h2>تحلیل نهایی</h2>
+      <p>موفق‌شدن Testها و رعایت معماری دو نوع اطمینان متفاوت ایجاد می‌کنند. Testهای رفتاری نشان می‌دهند سیستم در سناریوهای آزموده‌شده خروجی مورد انتظار را تولید می‌کند؛ اما لزوماً بررسی نمی‌کنند این رفتار در کدام لایه پیاده‌سازی شده است. بنابراین ممکن است Controller شامل تمام بررسی‌های وضعیت، مجوز و Self-Approval باشد و Testهای HTTP همچنان موفق شوند. در چنین حالتی رفتار فعلی درست است، ولی ساختار سیستم با تصمیم معماری تیم سازگار نیست.</p>
+
+      <p>این تفاوت در توسعه‌های بعدی اهمیت بیشتری پیدا می‌کند. اگر قاعدهٔ «هیچ‌کس نباید درخواست خودش را تأیید کند» فقط داخل Controller قرار بگیرد، مسیری مانند Background Job، CLI یا Message Queue می‌تواند Controller را دور بزند و آن قاعده را اجرا نکند. محل مناسب اجرای چنین قواعدی Application یا Domain است تا رفتار کسب‌وکار مستقل از روش ورود درخواست باقی بماند. Controller باید فقط جزئیات HTTP را مدیریت کند: ورودی را بخواند، Use Case را فراخوانی کند و نتیجهٔ مستقل از HTTP را به Response مناسب، مانند <code>409 Conflict</code>، تبدیل کند.</p>
+
+      <h3>محل ثبت قاعدهٔ معماری</h3>
+      <p>قاعدهٔ «Business Logic باید در Application یا Domain قرار بگیرد و API فقط مسئول دریافت درخواست و ارائهٔ پاسخ باشد» یک اصل پایدار و سراسری معماری است؛ بنابراین مرجع اصلی و الزام‌آور آن باید Constitution باشد. بااین‌حال، ثبت آن در Constitution به این معنا نیست که Plan و Tasks نقشی ندارند:</p>
+      <ul>
+        <li><strong>Constitution</strong> اصل غیرقابل‌چشم‌پوشی و معیار ارزیابی تصمیم‌ها را تعریف می‌کند.</li>
+        <li><strong>Plan</strong> نشان می‌دهد Feature مشخص چگونه با ساختار لایه‌ها، جهت وابستگی‌ها و Use Caseها این اصل را رعایت می‌کند.</li>
+        <li><strong>Tasks</strong> طراحی را به کارهای اجرایی و قابل پیگیری، مانند ایجاد Use Case و نازک نگه‌داشتن Controller، تبدیل می‌کند.</li>
+      </ul>
+      <p>پس این سه Artifact جایگزین یکدیگر نیستند؛ یک قانون واحد را در سه سطح «حاکمیت»، «طراحی» و «اجرا» قابل ردیابی می‌کنند.</p>
+
+      <h3>جلوگیری از تکرار مشکل</h3>
+      <p>برای جلوگیری از تکرار این تخلف، اتکا به مستندات به‌تنهایی کافی نیست و باید چند لایهٔ مکمل وجود داشته باشد:</p>
+      <ol>
+        <li>اصل جداسازی مسئولیت‌ها به‌صورت صریح و قابل ارزیابی در Constitution ثبت شود.</li>
+        <li>Plan هر Feature محل اجرای قواعد کسب‌وکار و مرز لایه‌های درگیر را مشخص کند.</li>
+        <li>Tasks شامل کارهای صریح برای Application/Domain، Controller و آزمون‌های مربوط به آن‌ها باشد.</li>
+        <li>Architecture Test یا قوانین وابستگی در CI، وابستگی‌های ممنوع میان لایه‌ها را شناسایی کنند.</li>
+        <li>Code Review با Checklist بررسی کند که Controller فقط کارهای مربوط به HTTP، فراخوانی Application و نگاشت نتیجه را انجام می‌دهد.</li>
+      </ol>
+
+      <p>Architecture Test می‌تواند بخشی از تخلف‌ها، مانند وابستگی Domain به API یا Infrastructure، را خودکار تشخیص دهد؛ ولی همیشه قادر نیست معنای یک شرط داخل Controller را بفهمد. به همین دلیل کنترل خودکار باید با بازبینی انسانی تکمیل شود.</p>
+
+      <p><strong>نتیجه:</strong> سبزبودن Testها برای اعلام صحت رفتار لازم است، اما برای اعلام انطباق کامل کافی نیست. قابلیت زمانی با تصمیم تیم سازگار است که علاوه بر رفتار صحیح، قواعد Constitution، طراحی ثبت‌شده در Plan و مرزهای مسئولیتی نیز رعایت شده باشند.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لاگ مسیر تحلیل سؤال پنجم</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f7f7f5;
+      --surface: #ffffff;
+      --text: #242424;
+      --muted: #6b6b6b;
+      --border: #deded8;
+      --accent: #315c87;
+      --user: #f2f7fc;
+      --assistant: #f7f4ed;
+      --open: #fff8df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 40px auto;
+    }
+
+    header,
+    section,
+    article {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    header,
+    section {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      line-height: 1.5;
+    }
+
+    h1 { font-size: 1.7rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    h3 { font-size: 1rem; }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child { margin-bottom: 0; }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .entry {
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .user {
+      background: var(--user);
+      border-right: 4px solid #5b8db8;
+    }
+
+    .assistant {
+      background: var(--assistant);
+      border-right: 4px solid #96764a;
+    }
+
+    .open {
+      background: var(--open);
+      border-right: 4px solid #d3a72e;
+    }
+
+    .label {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 10px 16px;
+      border-right: 3px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    code {
+      direction: ltr;
+      font-family: Consolas, monospace;
+      background: #ecece8;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .final-analysis {
+      min-height: 180px;
+      border: 2px dashed var(--border);
+    }
+
+    @media print {
+      body { background: #fff; }
+      main { width: 100%; margin: 0; }
+      header,
+      section,
+      article { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>لاگ مسیر تحلیل سؤال پنجم</h1>
+      <p>این فایل مسیر پرسش‌ها، پاسخ‌ها و تحلیل‌هایی را ثبت می‌کند که به پاسخ نهایی سؤال پنجم می‌رسند.</p>
+      <p class="meta">موضوع: Implement، Build، Test، Validation، Acceptance و Converge</p>
+    </header>
+
+    <section>
+      <h2>صورت سؤال</h2>
+      <p>Coding Agent گزارش داده است:</p>
+      <blockquote>«تمام Taskها تکمیل شده‌اند؛ پروژه Build شده و ۱۲۰ Test همگی Passed هستند.»</blockquote>
+      <p>اما در Code Review متوجه می‌شوید یک قاعدهٔ امنیتی رعایت نشده و یک معیار پذیرش انسانی هنوز ارزیابی نشده است.</p>
+      <ol>
+        <li>آیا Feature قابل اعلام به‌عنوان «کامل و پذیرفته‌شده» است؟</li>
+        <li>تفاوت Build، Test، Validation و Acceptance چیست؟</li>
+        <li>Converge در این وضعیت چه نقشی دارد و چه تفاوتی با Analyze دارد؟</li>
+        <li>اگر Converge شکاف جدیدی پیدا کند، مسیر اصلاح چیست؟</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>مسیر گفت‌وگو</h2>
+
+      <article class="entry user">
+        <h3><span class="label">درخواست کاربر:</span> شروع سؤال پنجم</h3>
+        <p>«بریم سؤال پنجم»</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">آماده‌سازی مفهومی:</span> چهار ایستگاه متفاوت</h3>
+        <p>گزارش Coding Agent دو شاهد فنی مهم ارائه می‌دهد، اما این شواهد به‌تنهایی کامل‌بودن و پذیرفته‌شدن Feature را ثابت نمی‌کنند:</p>
+        <ul>
+          <li><strong>Build:</strong> آیا کد می‌تواند به خروجی قابل اجرا یا قابل انتشار تبدیل شود؟ موفقیت Build بیشتر ناسازگاری‌های ساخت و Compilation را رد می‌کند.</li>
+          <li><strong>Test:</strong> آیا رفتارهایی که برایشان آزمون نوشته‌ایم مطابق انتظار عمل می‌کنند؟ Passed بودن Testها فقط دربارهٔ چیزهایی شاهد می‌دهد که واقعاً آزموده شده‌اند.</li>
+          <li><strong>Validation:</strong> آیا پیاده‌سازی واقعی با Specification، محدودیت‌ها و قواعد مورد انتظار تطابق دارد؟ این بررسی می‌تواند Test، Code Review، Security Review یا ارزیابی‌های دیگر را دربر بگیرد.</li>
+          <li><strong>Acceptance:</strong> آیا ذی‌نفع مجاز یا Product Owner، معیارهای پذیرش را بررسی کرده و Feature را برای نیاز واقعی قابل قبول می‌داند؟ بعضی معیارها انسانی‌اند و با Test خودکار اثبات نمی‌شوند.</li>
+        </ul>
+        <blockquote>
+          تمثیل ساده: کارخانه ماشین را بدون خطای مونتاژ ساخته است (<strong>Build</strong>)؛ آزمون ترمز و چراغ‌ها موفق بوده (<strong>Test</strong>)؛ بازرس بررسی می‌کند ماشین با همهٔ الزامات ایمنی و سفارش تطابق دارد (<strong>Validation</strong>)؛ و خریدار تحویل نهایی را بر اساس معیارهای توافق‌شده می‌پذیرد (<strong>Acceptance</strong>).
+        </blockquote>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های دور اول</span></h3>
+        <ol>
+          <li>با وجود Build موفق و ۱۲۰ Test پاس‌شده، آیا این Feature را «کامل و پذیرفته‌شده» اعلام می‌کنی؟ پاسخ را با اشاره به دو شکاف موجود توضیح بده.</li>
+          <li>اگر همهٔ Testها پاس شده‌اند ولی قاعدهٔ امنیتی نقض شده، کدام نتیجه دقیق‌تر است؟
+            <ul>
+              <li>قاعدهٔ امنیتی مهم نیست؛ چون Testها پاس شده‌اند.</li>
+              <li>Testها فقط موارد نوشته‌شده را پوشش داده‌اند و ممکن است برای این قاعده Test کافی وجود نداشته باشد.</li>
+              <li>Build موفق، رعایت امنیت را خودکار ثابت می‌کند.</li>
+            </ul>
+          </li>
+          <li>به زبان خودت بگو «معیار پذیرش انسانی هنوز ارزیابی نشده» چه تفاوتی با «یک Test شکست خورده» دارد.</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — دور اول</span></h3>
+        <ol>
+          <li>خیر؛ چون یک قاعدهٔ امنیتی رعایت نشده و یک معیار پذیرش انسانی هنوز ارزیابی نشده است.</li>
+          <li>گزینهٔ «ب»: Testها فقط مواردی را بررسی کرده‌اند که برایشان آزمون نوشته شده و ممکن است قاعدهٔ امنیتی پوشش داده نشده باشد.</li>
+          <li>بعضی موارد لزوماً با Test قابل ارزیابی نیستند. برای نمونه، ممکن است Test برای پاسخ یک سرویس Timeout سی‌ثانیه‌ای داشته باشد، اما انسان بداند سرویس‌های وابسته امروز کند هستند و زمان بیشتری برای پاسخ لازم است؛ درنتیجه Test شکست بخورد ولی بررسی انسانی نتیجه را قابل قبول بداند.</li>
+        </ol>
+        <p>کاربر درخواست کرد برای تفاوت Test و ارزیابی انسانی مثال‌های روشن‌تری ارائه شود.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">بازخورد و اصلاح مفهومی:</span> Test شکست‌خورده با Acceptance ارزیابی‌نشده یکی نیست</h3>
+        <p>پاسخ‌های اول و دوم درست‌اند. پاسخ سوم نیز به تفاوت ارزیابی ماشینی و قضاوت انسانی نزدیک است، اما مثال Timeout دو مفهوم جدا را با هم ترکیب می‌کند.</p>
+        <ul>
+          <li><strong>Test شکست‌خورده:</strong> یک شرط از قبل تعریف‌شده اجرا شده و نتیجهٔ آن منفی بوده است؛ یعنی فعلاً شاهدی علیه رفتار مورد انتظار داریم.</li>
+          <li><strong>Acceptance انسانی ارزیابی‌نشده:</strong> هنوز شخص واجد صلاحیت معیار را بررسی نکرده است؛ پس نه نتیجهٔ Pass داریم و نه Fail.</li>
+        </ul>
+        <p>اگر Requirement صراحتاً بگوید «پاسخ باید حداکثر در ۳۰ ثانیه برسد»، کندبودن سرویس وابسته علت شکست را توضیح می‌دهد، اما Requirement را خودکار Pass نمی‌کند. برای Pass کردن باید یکی از این موارد روشن شود:</p>
+        <ul>
+          <li>Test در محیط نامعتبر یا مختل اجرا شده و نتیجه‌اش قابل استناد نیست؛</li>
+          <li>Requirement برای شرایط عادی تعریف شده و این اجرا خارج از آن شرایط بوده است؛</li>
+          <li>خود Requirement باید با تصمیم ذی‌نفع مجاز تغییر کند.</li>
+        </ul>
+        <p>انسان نباید یک شکست واقعی را صرفاً با اطلاع از علت آن به Pass تبدیل کند. دانستن علت برای تشخیص و تصمیم‌گیری مفید است، نه برای تغییر معنای معیار.</p>
+
+        <h3>مثال‌های بهتر برای Acceptance انسانی</h3>
+        <ol>
+          <li><strong>قابل‌فهم‌بودن پیام خطا:</strong> Test می‌تواند وجود متن و کد خطا را بررسی کند، اما نمایندهٔ کاربران باید قضاوت کند که پیام برای مخاطب واقعی روشن، محترمانه و راهگشاست.</li>
+          <li><strong>تجربهٔ یک گردش کار:</strong> Test ثابت می‌کند همهٔ دکمه‌ها کار می‌کنند؛ Product Owner یا کاربر واقعی ارزیابی می‌کند که فرایند ثبت درخواست گیج‌کننده یا بیش‌ازحد طولانی نیست.</li>
+          <li><strong>تطابق بصری:</strong> بررسی خودکار می‌تواند اندازه یا رنگ را مقایسه کند، اما طراح ممکن است لازم باشد هماهنگی نهایی صفحه با زبان بصری محصول را تأیید کند.</li>
+          <li><strong>مناسب‌بودن خروجی هوش مصنوعی:</strong> Test می‌تواند ساختار پاسخ، نبودن فیلد خالی و محدودیت طول را بررسی کند؛ اما کارشناس حوزه باید مرتبط‌بودن، لحن و کیفیت معنایی پاسخ را بسنجد.</li>
+        </ol>
+        <p>بنابراین عبارت دقیق‌تر این است: <strong>بعضی معیارها را می‌توان تا حدی خودکار آزمود، اما پذیرش نهایی آن‌ها به قضاوت انسانی یا اختیار یک ذی‌نفع مشخص وابسته است.</strong></p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های دور دوم:</span> Analyze در برابر Converge</h3>
+        <p>دو ابزار را در دو زمان متفاوت تصور کن:</p>
+        <ul>
+          <li><strong>Analyze:</strong> پیش از پیاده‌سازی، Specification، Plan و Tasks را با یکدیگر مقایسه می‌کند تا شکاف‌ها و ناسازگاری‌های اسناد را پیدا کند.</li>
+          <li><strong>Converge:</strong> پس از شکل‌گرفتن پیاده‌سازی، کد واقعی را با Specification، Plan و Tasks مقایسه می‌کند تا کارهای باقی‌مانده یا پیاده‌سازی‌های منحرف‌شده را پیدا کرده و به مسیر تکمیل برگرداند.</li>
+        </ul>
+        <ol>
+          <li>قاعدهٔ امنیتی در Specification وجود داشته، اما در کد رعایت نشده است. انتظار داری این شکاف را Analyze پیدا کند یا Converge؟ چرا؟</li>
+          <li>اگر Converge این شکاف را پیدا کند، آیا خودش فوراً کد را اصلاح می‌کند، یا باید ابتدا کار باقی‌مانده به Task مشخصی تبدیل شود و سپس Implement آن را اجرا کند؟</li>
+          <li>اگر Converge متوجه شود معیار پذیرش انسانی هنوز بررسی نشده، آیا می‌تواند به‌جای انسان آن را Pass اعلام کند؟ چه اقدامی باید ثبت شود؟</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — دور دوم</span></h3>
+        <ol>
+          <li><strong>Converge</strong>؛ چون عبارت «در کد رعایت نشده» نشان می‌دهد پیاده‌سازی انجام شده و اکنون باید کد واقعی بررسی شود.</li>
+          <li>به‌نظر کاربر باید دوباره Plan انجام شود، سپس Task تولید شود و بعد Implement اجرا شود.</li>
+          <li>Converge اجازه ندارد معیار انسانی را به‌جای انسان Pass اعلام کند؛ باید کاری برای عامل انسانی تعریف و به او واگذار شود تا آن را بررسی کند.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">بازخورد:</span> مسیر اصلاح به منشأ شکاف بستگی دارد</h3>
+        <p>پاسخ اول درست است: Analyze عمدتاً سازگاری اسناد پیش از Implement را بررسی می‌کند، اما Converge پیاده‌سازی موجود را با Specification، Plan و Tasks می‌سنجد. چون مسئله در کد واقعی دیده شده، این شکاف در قلمرو Converge است.</p>
+        <p>در پاسخ دوم، بازگشت همیشگی به Plan لازم نیست. باید ابتدا بپرسیم شکاف از کجا آمده است:</p>
+        <ul>
+          <li><strong>Specification و Plan درست‌اند، اما کد ناقص است:</strong> Converge کار باقی‌مانده را به Task مشخص تبدیل می‌کند؛ سپس Implement آن Task را انجام می‌دهد و نتیجه دوباره Validation می‌شود.</li>
+          <li><strong>راه‌حل فنی یا طراحی کافی نیست:</strong> باید Plan یا تصمیم طراحی اصلاح شود؛ بعد Tasks به‌روز و Implement اجرا شود.</li>
+          <li><strong>Requirement غایب یا مبهم است:</strong> ابتدا باید به Specify/Clarify برگشت؛ سپس در صورت اثرگذاری، Plan و Tasks نیز به‌روز شوند.</li>
+        </ul>
+        <blockquote>
+          پس در سناریوی فعلی، اگر قاعدهٔ امنیتی از قبل به‌وضوح در Specification و طراحی آمده و فقط پیاده نشده باشد، مسیر کوتاه‌تر چنین است:<br>
+          <code>Converge → Task جدید → Implement → Validation</code>
+        </blockquote>
+        <p>پاسخ سوم نیز از نظر مسئولیت درست است: Converge نمی‌تواند جای قضاوت انسان را بگیرد. بااین‌حال بهتر است آن را صرفاً «Task برنامه‌نویسی» ننامیم. می‌توان آن را به‌صورت یک <strong>Manual Acceptance Item</strong>، مورد Checklist یا Gate با مالک انسانی مشخص ثبت کرد. Feature تا ثبت نتیجه و شواهد این ارزیابی، پذیرفته‌شده محسوب نمی‌شود.</p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های جمع‌بندی</span></h3>
+        <ol>
+          <li>سه وضعیت زیر را به مسیر درست وصل کن:
+            <ul>
+              <li>Requirement امنیتی روشن است و Plan هم راه‌حل را مشخص کرده، ولی کد آن را ندارد.</li>
+              <li>Requirement امنیتی وجود دارد، ولی هیچ تصمیم فنی برای اجرای آن گرفته نشده است.</li>
+              <li>اصلاً معلوم نیست قاعدهٔ امنیتی دقیقاً چه رفتاری می‌خواهد.</li>
+            </ul>
+            مسیرهای ممکن: بازگشت به Clarify/Specify، بازگشت به Plan، یا ساخت Task جدید و اجرای Implement.
+          </li>
+          <li>در یک جمله تفاوت Analyze و Converge را با تمرکز بر چیزی که هرکدام مقایسه می‌کنند بیان کن.</li>
+          <li>برای اعلام نهایی Feature به‌عنوان «کامل و پذیرفته‌شده»، چه چهار شاهد یا نتیجه‌ای باید داشته باشیم؟ از مفاهیم Build، Test، Validation و Acceptance استفاده کن.</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — جمع‌بندی</span></h3>
+        <ol>
+          <li>در حالت اول Task ساخته و اجرا می‌شود؛ در حالت دوم به Plan بازمی‌گردیم؛ و در حالت سوم به Clarify/Specify بازمی‌گردیم.</li>
+          <li>Analyze پیش از پیاده‌سازی، Specification، Plan و Tasks را بررسی می‌کند تا مشکلات را شناسایی کند؛ Converge نیز این سه مورد را پس از پیاده‌سازی بررسی می‌کند تا از کامل‌بودن کار مطمئن شود.</li>
+          <li>Feature زمانی کامل و پذیرفته‌شده است که Build موفق باشد، همهٔ Testها Pass شده باشند، هیچ Validationای رد نشده باشد و عامل انسانی نیز آن را Accept کرده باشد.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">دقیق‌سازی جمع‌بندی</span></h3>
+        <p>پاسخ اول کاملاً درست است و نشان می‌دهد مسیر اصلاح باید براساس منشأ شکاف انتخاب شود.</p>
+        <p>پاسخ دوم به یک اصلاح مهم نیاز دارد: Converge فقط همان سه سند را در زمان دیگری با یکدیگر مقایسه نمی‌کند؛ تفاوت اصلی در حضور <strong>پیاده‌سازی واقعی</strong> است:</p>
+        <ul>
+          <li><strong>Analyze:</strong> Specification، Plan و Tasks را با یکدیگر مقایسه می‌کند تا پیش از Implement، ناسازگاری و نقص اسناد را پیدا کند.</li>
+          <li><strong>Converge:</strong> Codebase و پیاده‌سازی واقعی را در برابر Specification، Plan و Tasks قرار می‌دهد تا شکاف میان «آنچه باید ساخته می‌شد» و «آنچه واقعاً ساخته شده» را کشف کند.</li>
+        </ul>
+        <p>در پاسخ سوم، عبارت «هیچ Validationای رد نشده» کافی نیست؛ چون ممکن است هیچ Validationای اصلاً اجرا نشده باشد و درنتیجه چیزی هم رد نشده باشد. عبارت دقیق این است: <strong>تمام Validationهای لازم انجام شده و موفق بوده‌اند.</strong></p>
+        <p>پس شواهد تکمیل و پذیرش عبارت‌اند از:</p>
+        <ol>
+          <li>Build با موفقیت انجام شده است.</li>
+          <li>Testهای لازم و مرتبط اجرا و Pass شده‌اند.</li>
+          <li>Validationهای لازم تکمیل شده و تطابق پیاده‌سازی با الزامات را تأیید کرده‌اند.</li>
+          <li>معیارهای Acceptance، از جمله موارد انسانی، توسط مالک واجد صلاحیت بررسی و پذیرفته شده‌اند.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">آخرین بررسی</span></h3>
+        <p>فرض کن Converge یک شکاف پیاده‌سازی پیدا کرده و Specification و Plan از قبل درست و کامل‌اند. مسیر را از لحظهٔ کشف شکاف تا امکان اعلام Feature به‌عنوان پذیرفته‌شده، در یک زنجیره بنویس.</p>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — آخرین بررسی</span></h3>
+        <p>اگر Specification و Plan درست و کامل باشند، احتمالاً راه فنی کافی نبوده است. پیش از بازگشت به Plan باید Build، Test، Validation و Acceptance به‌ترتیب بررسی شوند تا شاید شکاف در این مسیر پیدا شود؛ اگر پیدا نشد، باید دوباره Plan انجام شود.</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">اصلاح نهایی:</span> کشف شکاف با اصلاح شکاف فرق دارد</h3>
+        <p>در فرض سؤال، Converge شکاف را از قبل پیدا کرده است؛ بنابراین لازم نیست برای یافتن دوبارهٔ همان شکاف، مراحل Build، Test، Validation و Acceptance طی شوند.</p>
+        <p>همچنین اگر «راه فنی کافی نبوده»، Plan دیگر درست و کامل محسوب نمی‌شود. اما فرض سؤال می‌گوید Specification و Plan درست و کامل‌اند؛ پس مشکل این است که پیاده‌سازی از آن‌ها تبعیت نکرده یا بخشی از کار جا افتاده است.</p>
+        <p>مسیر مناسب در این حالت چنین است:</p>
+        <blockquote>
+          <code>Converge Finding → افزودن Task باقی‌مانده → Implement → Build/Test → Validation → Human Acceptance</code>
+        </blockquote>
+        <p>در صورت نیاز می‌توان پس از اصلاح، Converge را دوباره اجرا کرد تا باقی‌نماندن شکاف پیاده‌سازی تأیید شود.</p>
+        <p>Build، Test، Validation و Acceptance در این مسیر ابزارهای جست‌وجوی کورکورانه برای شکافی که از قبل شناخته شده نیستند؛ آن‌ها شواهد و Gateهای لازم برای اثبات صحت، تطابق و پذیرش نسخهٔ اصلاح‌شده‌اند.</p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">صورت‌بندی نهایی مورد انتظار</span></h3>
+        <p>با توجه به اصلاح بالا، زنجیرهٔ درست را یک بار به زبان خودت بنویس. نکتهٔ کلیدی این است که در این سناریو نه Requirement عوض شده و نه طراحی؛ فقط بخشی از پیاده‌سازی باقی مانده است.</p>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">تأیید کاربر</span></h3>
+        <p>«فهمیدم! برو سراغ بستن تحلیل نهایی»</p>
+      </article>
+    </section>
+
+    <section class="final-analysis">
+      <h2>تحلیل نهایی</h2>
+
+      <h3>۱. آیا Feature کامل و پذیرفته‌شده است؟</h3>
+      <p><strong>خیر.</strong> موفقیت Build، تکمیل همهٔ Taskهای ثبت‌شده و Pass شدن ۱۲۰ Test شواهد فنی ارزشمندی هستند، اما کامل‌بودن Feature را به‌تنهایی ثابت نمی‌کنند. در این سناریو دو شکاف قطعی وجود دارد:</p>
+      <ul>
+        <li>یک قاعدهٔ امنیتی در پیاده‌سازی رعایت نشده است؛</li>
+        <li>یک معیار Acceptance انسانی هنوز ارزیابی نشده است.</li>
+      </ul>
+      <p>بنابراین Feature نه کاملاً Validated است و نه Accepted. همچنین «تمام Taskها انجام شده‌اند» فقط نشان می‌دهد فهرست فعلی Taskها اجرا شده است؛ نه اینکه آن فهرست حتماً کامل بوده یا کد تمام Requirementها را محقق کرده است.</p>
+
+      <h3>۲. تفاوت Build، Test، Validation و Acceptance</h3>
+      <ul>
+        <li><strong>Build:</strong> بررسی می‌کند کد بتواند با ابزارهای پروژه به خروجی قابل اجرا یا انتشار تبدیل شود. Build موفق، رعایت منطق کسب‌وکار یا امنیت را تضمین نمی‌کند.</li>
+        <li><strong>Test:</strong> رفتار پیاده‌سازی را در سناریوهایی که برایشان آزمون نوشته شده بررسی می‌کند. Pass شدن همهٔ Testها اثبات نمی‌کند که تمام رفتارها، شرایط مرزی و قواعد امنیتی پوشش داده شده‌اند.</li>
+        <li><strong>Validation:</strong> مجموعهٔ شواهد لازم برای اطمینان از تطابق پیاده‌سازی واقعی با Specification، محدودیت‌ها و معیارهای کیفی است. Test، Code Review و Security Review می‌توانند بخشی از Validation باشند.</li>
+        <li><strong>Acceptance:</strong> تصمیم ذی‌نفع یا مالک واجد صلاحیت دربارهٔ قابل‌قبول‌بودن Feature برای نیاز واقعی است. بعضی معیارهای آن به قضاوت انسانی نیاز دارند و Agent نمی‌تواند به‌جای انسان آن‌ها را Pass اعلام کند.</li>
+      </ul>
+      <blockquote>
+        <strong>Test شکست‌خورده</strong> یعنی معیاری اجرا شده و نتیجهٔ آن منفی بوده است؛ اما <strong>Acceptance ارزیابی‌نشده</strong> یعنی هنوز هیچ نتیجهٔ Pass یا Fail معتبری نداریم.
+      </blockquote>
+      <p>برای نمونه، Test می‌تواند وجود پیام خطا را بررسی کند، اما نمایندهٔ کاربران باید قابل‌فهم‌بودن آن را ارزیابی کند. Test می‌تواند عملکرد دکمه‌ها را بسنجد، اما Product Owner ممکن است لازم باشد قابل‌استفاده‌بودن کل گردش کار را تأیید کند.</p>
+
+      <h3>۳. نقش Converge و تفاوت آن با Analyze</h3>
+      <ul>
+        <li><strong>Analyze</strong> پیش از Implement، اسناد Specification، Plan و Tasks را با یکدیگر مقایسه می‌کند تا ناسازگاری، ابهام، نقص پوشش و Dependency نامعتبر را پیدا کند.</li>
+        <li><strong>Converge</strong> پس از شکل‌گرفتن پیاده‌سازی، Codebase واقعی را در برابر Specification، Plan و Tasks قرار می‌دهد تا فاصلهٔ میان «آنچه باید ساخته می‌شد» و «آنچه واقعاً ساخته شده» مشخص شود.</li>
+      </ul>
+      <p>در این سناریو، قاعدهٔ امنیتی در کد رعایت نشده است؛ پس Converge باید این شکاف پیاده‌سازی را ثبت و کار باقی‌مانده را به Task قابل اجرا تبدیل کند. Converge با اعلام اینکه Taskهای قبلی کامل شده‌اند، شکاف واقعی را نادیده نمی‌گیرد و معیار انسانی را نیز خودکار تأیید نمی‌کند.</p>
+
+      <h3>۴. مسیر اصلاح شکاف کشف‌شده</h3>
+      <p>مسیر بازگشت به منشأ شکاف بستگی دارد:</p>
+      <ul>
+        <li><strong>Specification و Plan درست‌اند، اما کد ناقص است:</strong> Task باقی‌مانده افزوده، توسط Implement اجرا و سپس نسخهٔ اصلاح‌شده دوباره ارزیابی می‌شود.</li>
+        <li><strong>Requirement روشن است، اما راه‌حل فنی کافی نیست:</strong> Plan اصلاح می‌شود؛ سپس Tasks و پیاده‌سازی به‌روزرسانی می‌شوند.</li>
+        <li><strong>Requirement غایب یا مبهم است:</strong> ابتدا Specify/Clarify انجام می‌شود و تغییرات لازم به Plan، Tasks و کد منتقل می‌شوند.</li>
+        <li><strong>Acceptance انسانی باقی مانده است:</strong> یک Manual Acceptance Item یا Gate با مالک انسانی مشخص ثبت می‌شود و Feature تا اعلام نتیجه پذیرفته‌شده نیست.</li>
+      </ul>
+      <p>در فرض اصلی که Specification و Plan درست و کامل‌اند و فقط بخشی از پیاده‌سازی جا افتاده است، زنجیرهٔ مناسب چنین است:</p>
+      <blockquote>
+        <code>Converge Finding → Task جدید → Implement → Build/Test → Validation → Human Acceptance</code>
+      </blockquote>
+      <p>در صورت نیاز می‌توان پس از اصلاح، Converge را دوباره اجرا کرد تا باقی‌نماندن شکاف دیگری بررسی شود.</p>
+
+      <h3>۵. شرط اعلام نهایی Feature</h3>
+      <p>Feature زمانی قابل اعلام به‌عنوان «کامل و پذیرفته‌شده» است که دست‌کم این شواهد وجود داشته باشند:</p>
+      <ol>
+        <li>Build با موفقیت انجام شده باشد؛</li>
+        <li>Testهای لازم و مرتبط اجرا و Pass شده باشند؛</li>
+        <li>تمام Validationهای لازم انجام شده و تطابق پیاده‌سازی با الزامات را تأیید کرده باشند؛</li>
+        <li>معیارهای Acceptance، به‌ویژه موارد انسانی، توسط مالک واجد صلاحیت بررسی و پذیرفته شده باشند.</li>
+      </ol>
+      <p>عبارت «هیچ Validationای رد نشده» کافی نیست؛ زیرا ممکن است Validation اصلاً انجام نشده باشد. معیار معتبر این است که <strong>Validationهای لازم تکمیل و موفق شده باشند</strong>.</p>
+
+      <h3>نتیجهٔ نهایی</h3>
+      <p>Build و Test دربارهٔ سلامت فنیِ بخش‌هایی از سیستم شاهد می‌دهند، اما Validation تطابق کل پیاده‌سازی با الزامات را می‌سنجد و Acceptance تصمیم نهایی صاحب اختیار دربارهٔ قابل‌قبول‌بودن Feature است. Converge پلی میان اسناد و کد واقعی است: شکاف‌های باقی‌مانده را پیدا می‌کند و آن‌ها را دوباره وارد چرخهٔ Tasks و Implement می‌کند تا Feature واقعاً—نه فقط روی کاغذ—به وضعیت کامل و پذیرفته‌شده برسد.</p>
+    </section>
+  </main>
+</body>
+</html>

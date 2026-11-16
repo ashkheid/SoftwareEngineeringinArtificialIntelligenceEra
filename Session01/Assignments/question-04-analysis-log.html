@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لاگ مسیر تحلیل سؤال چهارم</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f7f7f5;
+      --surface: #ffffff;
+      --text: #242424;
+      --muted: #6b6b6b;
+      --border: #deded8;
+      --accent: #315c87;
+      --user: #f2f7fc;
+      --assistant: #f7f4ed;
+      --open: #fff8df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 40px auto;
+    }
+
+    header,
+    section,
+    article {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    header,
+    section {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      line-height: 1.5;
+    }
+
+    h1 { font-size: 1.7rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    h3 { font-size: 1rem; }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child { margin-bottom: 0; }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .entry {
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .user {
+      background: var(--user);
+      border-right: 4px solid #5b8db8;
+    }
+
+    .assistant {
+      background: var(--assistant);
+      border-right: 4px solid #96764a;
+    }
+
+    .open {
+      background: var(--open);
+      border-right: 4px solid #d3a72e;
+    }
+
+    .label {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 10px 16px;
+      border-right: 3px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    code {
+      direction: ltr;
+      font-family: Consolas, monospace;
+      background: #ecece8;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .final-analysis {
+      min-height: 180px;
+      border: 2px dashed var(--border);
+    }
+
+    @media print {
+      body { background: #fff; }
+      main { width: 100%; margin: 0; }
+      header,
+      section,
+      article { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>لاگ مسیر تحلیل سؤال چهارم</h1>
+      <p>این فایل مسیر پرسش‌ها، پاسخ‌ها و تحلیل‌هایی را ثبت می‌کند که به پاسخ نهایی سؤال چهارم می‌رسند.</p>
+      <p class="meta">موضوع: Dependency، Parallelism، Analyze و معنای واقعی پوشش Requirementها توسط Tasks</p>
+    </header>
+
+    <section>
+      <h2>صورت سؤال</h2>
+      <p>برای یک Feature، تعداد ۳۰ Task تولید شده و هر Requirement حداقل به یک Task مرتبط است. با این حال:</p>
+      <ul>
+        <li>یک Task به دیتابیس آماده نیاز دارد، در حالی که Migration دیتابیس در Task بعدی تعریف شده است.</li>
+        <li>دو Task دارای نشانگر <code>[P]</code> باید فایل مشترکی را تغییر دهند.</li>
+      </ul>
+      <ol>
+        <li>چه مشکلاتی در Dependency و Parallelism وجود دارد؟</li>
+        <li>انتظار دارید Analyze چه Findingهایی گزارش کند؟</li>
+        <li>آیا پوشش ۱۰۰٪ Requirementها توسط Tasks، آمادگی قطعی برای Implement را ثابت می‌کند؟ چرا؟</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>مسیر گفت‌وگو</h2>
+
+      <article class="entry user">
+        <h3><span class="label">درخواست کاربر:</span> شروع سؤال چهارم</h3>
+        <p>«بریم سؤال چهارم»</p>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">آماده‌سازی مفهومی:</span> دو اصطلاح لازم</h3>
+        <ul>
+          <li><strong>Dependency:</strong> اگر Task «ب» برای شروع یا تکمیل به خروجی Task «الف» نیاز داشته باشد، «ب» به «الف» وابسته است و «الف» باید زودتر انجام شود.</li>
+          <li><strong><code>[P]</code> یا Parallel:</strong> یعنی Task می‌تواند هم‌زمان با Taskهای موازی دیگر اجرا شود، چون وابستگی اجرایی و محل تغییر متداخل با آن‌ها ندارد.</li>
+          <li><strong>Analyze:</strong> اسناد Specification، Plan و Tasks را بدون پیاده‌سازی با هم مقایسه می‌کند تا ناسازگاری، ابهام، نقص پوشش، ترتیب نادرست و ادعای موازی‌بودن نامعتبر را پیدا کند.</li>
+        </ul>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های دور اول</span></h3>
+        <ol>
+          <li>فرض کن <code>T12</code> باید داده‌ای را در جدول <code>Requests</code> ذخیره کند و <code>T13</code> تازه آن جدول را با Migration می‌سازد. ترتیب درست این دو چیست و اگر ترتیب فعلی حفظ شود چه اتفاقی ممکن است بیفتد؟</li>
+          <li>دو Task با نشانگر <code>[P]</code> هم‌زمان یک فایل مشترک را ویرایش می‌کنند. آیا واقعاً مستقل و قابل اجرای موازی‌اند؟ یک خطر مشخصِ این کار را نام ببر.</li>
+          <li>فرض کن هر Requirement به یک Task لینک شده است، اما یکی از Taskها ناقص، مبهم یا در ترتیب نامناسب قرار دارد. آیا عدد «پوشش ۱۰۰٪» به‌تنهایی اجازه می‌دهد Implement را با اطمینان شروع کنیم؟ دلیل پاسخ را با یک مثال کوتاه بگو.</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — دور اول</span></h3>
+        <ol>
+          <li>ترتیب فعلی شدنی نیست، چون در ابتدا جدول وجود ندارد. Analyze احتمالاً موضوع را تشخیص می‌دهد، سپس ابتدا <code>T13</code> را به‌عنوان پیش‌نیاز <code>T12</code> و بعد <code>T12</code> را اجرا می‌کند.</li>
+          <li>خیر؛ به‌نظر کاربر اصولاً نباید بیش از یک Task روی یک فایل اجرا شود، چون به تداخل می‌خورند.</li>
+          <li>خیر؛ ابتدا باید Clarification به‌درستی انجام شود.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">بازخورد و اصلاح مفهومی</span></h3>
+        <ol>
+          <li><strong>تشخیص وابستگی درست است، اما Analyze اجرا نمی‌کند.</strong> Analyze یک بررسی غیرمخرب است: گزارش می‌دهد که <code>T12</code> به خروجی <code>T13</code> نیاز دارد و ترتیب یا Dependency ثبت‌شده نادرست است. سپس باید تعریف Tasks اصلاح شود تا Migration قبل از Task وابسته قرار گیرد؛ اجرای آن‌ها وظیفهٔ مرحلهٔ Implement است.</li>
+          <li><strong>ممنوعیت مطلق لازم نیست.</strong> چند Task می‌توانند در زمان‌های متفاوت یک فایل را ویرایش کنند. مشکل این سناریو آن است که دو Task با برچسب <code>[P]</code> قرار است هم‌زمان همان فایل را تغییر دهند؛ بنابراین مستقل نیستند و خطر Conflict، بازنویسی تغییرات یکدیگر یا تولید کد ناسازگار وجود دارد. راه معمول، حذف <code>[P]</code> و تعیین ترتیب یا بازطراحی مرز Taskهاست.</li>
+          <li><strong>Clarify تنها درمان ممکن نیست.</strong> اگر خود Requirement مبهم باشد، Clarify لازم است؛ اما اگر Requirement روشن و Task ناقص یا بدترتیب باشد، اشکال در Tasks/Plan است و باید همان‌جا اصلاح شود. پوشش ۱۰۰٪ فقط می‌گوید برای هر Requirement یک لینک وجود دارد، نه اینکه Task مرتبط کافی، صحیح، مستقل، آزمون‌پذیر یا دارای ترتیب درست است.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های دور دوم</span></h3>
+        <ol>
+          <li>با توجه به اینکه Analyze غیرمخرب است، انتظار داری برای وابستگی <code>T12</code> و <code>T13</code> چه Finding مشخصی بنویسد و بعد از آن چه چیزی در فایل Tasks اصلاح شود؟</li>
+          <li>اگر <code>T20</code> امروز بخشی از یک فایل را بسازد و <code>T21</code> بعد از تکمیل آن، فردا همان فایل را توسعه دهد، آیا اصلِ اشتراک فایل مشکل است یا فقط ادعای اجرای موازی؟</li>
+          <li>کدام مورد به Clarify نیاز دارد و کدام مورد به اصلاح Tasks؟
+            <ul>
+              <li>Requirement می‌گوید «مدیر درخواست را تأیید می‌کند»، اما معلوم نیست کدام مدیر مجاز است.</li>
+              <li>Requirement کاملاً روشن است، اما Migration بعد از Task وابسته آمده است.</li>
+            </ul>
+          </li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — دور دوم</span></h3>
+        <ol>
+          <li>کاربر هنوز معنای دقیق Finding را نمی‌داند، اما معتقد است باید برای <code>T12</code> پیش‌نیاز بودن <code>T13</code> مشخص شود.</li>
+          <li>در حالت اجرای ترتیبی، اشتراک فایل مشکل نیست و فقط ادعای اجرای موازی نادرست است.</li>
+          <li>ابهام دربارهٔ مدیر مجاز به Clarify و ترتیب نادرست Migration به اصلاح Tasks نیاز دارد.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">آموزش:</span> Finding دقیقاً چیست؟</h3>
+        <p><strong>Finding یعنی «مورد یا ایرادی که در بررسی پیدا و گزارش شده است».</strong> Finding خودِ اصلاح نیست؛ شرح مستندِ مشکلی است که به ما می‌گوید چه چیزی، کجا و چرا ناسازگار یا پرخطر است.</p>
+        <p>یک Finding معمولاً می‌تواند این اجزا را داشته باشد:</p>
+        <ul>
+          <li><strong>دسته:</strong> مثلاً Dependency یا Parallelism</li>
+          <li><strong>محل:</strong> Taskهای درگیر، مانند <code>T12</code> و <code>T13</code></li>
+          <li><strong>شرح مشکل:</strong> چه ناسازگاری‌ای مشاهده شده است</li>
+          <li><strong>اثر یا شدت:</strong> چرا می‌تواند اجرای کار را مختل کند</li>
+          <li><strong>پیشنهاد اصلاح:</strong> چه تغییری مشکل را برطرف می‌کند</li>
+        </ul>
+        <blockquote>
+          <strong>نمونهٔ Finding وابستگی:</strong><br>
+          <code>T12</code> از جدول <code>Requests</code> استفاده می‌کند، اما Migration سازندهٔ آن در <code>T13</code> و بعد از Task مصرف‌کننده قرار گرفته است. در صورت اجرای ترتیب فعلی، <code>T12</code> ممکن است شکست بخورد. <code>T13</code> را پیش از <code>T12</code> قرار دهید و وابستگی <code>T12 → T13</code> را ثبت کنید.
+        </blockquote>
+        <p>پس عبارت بدون ابهام این است: <strong><code>T13</code> پیش‌نیاز <code>T12</code> است</strong>؛ یا <strong><code>T12</code> به <code>T13</code> وابسته است</strong>.</p>
+        <p>پاسخ‌های دوم و سوم کاربر درست‌اند: ویرایش ترتیبی یک فایل ذاتاً مشکل ندارد و ابهام Requirement با Clarify حل می‌شود، درحالی‌که ترتیب غلط Taskها باید در خود Tasks اصلاح شود.</p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">پرسش‌های جمع‌بندی</span></h3>
+        <ol>
+          <li>برای دو Task موازی که فایل مشترک دارند، Finding را در یک جمله و پیشنهاد اصلاحش را در یک جملهٔ جدا بنویس.</li>
+          <li>پوشش ۱۰۰٪ فقط چه چیزی را ثابت می‌کند؟ علاوه بر Coverage، دو نمونه از چیزهایی را نام ببر که برای آمادگی Implement باید بررسی شوند.</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — جمع‌بندی</span></h3>
+        <ol>
+          <li>Task پیش‌نیاز شناسایی و با اولویت اول انجام شود؛ تا زمان تأیید یا Pass شدن تست‌ها، Task بعدی اجازهٔ اجرا نداشته باشد.</li>
+          <li>پوشش ۱۰۰٪ فقط ثابت می‌کند به‌ازای هر Requirement یک Task وجود دارد؛ اما شفاف‌بودن، قابل‌پیاده‌سازی‌بودن و ترتیب مناسب آن Task را ثابت نمی‌کند.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">اصلاح نهایی:</span> Dependency در برابر تداخل اجرای موازی</h3>
+        <p>پاسخ دوم کامل و درست است. پاسخ اول راه‌حل یک Dependency واقعی را توصیف می‌کند، اما در سناریوی فایل مشترک لزوماً هیچ‌یک از دو Task از نظر منطقی به خروجی دیگری نیاز ندارد. مشکل این است که آن‌ها یک منبع مشترک—فایل—را هم‌زمان تغییر می‌دهند و بنابراین ادعای <code>[P]</code> معتبر نیست.</p>
+        <blockquote>
+          <strong>Finding:</strong> دو Task با نشانگر <code>[P]</code> فایل مشترکی را تغییر می‌دهند؛ پس اجرای هم‌زمان آن‌ها ممکن است Conflict، بازنویسی تغییرات یا کد ناسازگار ایجاد کند.<br>
+          <strong>پیشنهاد اصلاح:</strong> نشانگر <code>[P]</code> از یکی یا هر دو حذف و ترتیب اجرای آن‌ها مشخص شود؛ یا مرز Taskها و فایل‌ها طوری بازطراحی شود که تغییرات واقعاً مستقل شوند.
+        </blockquote>
+        <p>«تأیید» یا «Pass شدن تست‌ها» شرطی اضافی است که صورت سؤال تعیین نکرده است. برای جلوگیری از تداخل، کافی است Task دوم پس از پایان Task اول شروع شود؛ مگر اینکه Definition of Done پروژه صراحتاً تکمیل Task را به تست یا تأیید وابسته کرده باشد.</p>
+      </article>
+
+      <article class="entry assistant open">
+        <h3><span class="label">آخرین بررسی</span></h3>
+        <p>تفاوت این دو را با یک جمله برای هرکدام بیان کن:</p>
+        <ol>
+          <li><strong>Dependency:</strong> چرا <code>T12</code> بدون <code>T13</code> نمی‌تواند کار کند؟</li>
+          <li><strong>Parallelism conflict:</strong> چرا دو Taskِ فاقد وابستگی منطقی ممکن است باز هم نتوانند هم‌زمان اجرا شوند؟</li>
+        </ol>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">پاسخ کاربر — آخرین بررسی</span></h3>
+        <ol>
+          <li><code>T13</code> پیش‌نیاز <code>T12</code> است.</li>
+          <li>بخشی از یک پیاده‌سازی ممکن است بر بخش دیگر اثر بگذارد و کار دو Task در نقطه‌ای مشترک شود.</li>
+        </ol>
+      </article>
+
+      <article class="entry assistant">
+        <h3><span class="label">صورت‌بندی دقیق پاسخ</span></h3>
+        <ol>
+          <li><strong>Dependency:</strong> <code>T13</code> جدول موردنیاز را ایجاد می‌کند و <code>T12</code> بدون وجود آن جدول قادر به انجام کارش نیست؛ بنابراین <code>T13</code> پیش‌نیاز واقعی <code>T12</code> است.</li>
+          <li><strong>Parallelism conflict:</strong> دو Task ممکن است برای تحقق هدف خود به خروجی یکدیگر نیاز نداشته باشند، اما چون منبع مشترکی مانند یک فایل را تغییر می‌دهند، اجرای هم‌زمانشان می‌تواند باعث تداخل یا ازبین‌رفتن تغییرات شود. پس عدم وجود Dependency به‌تنهایی Parallel بودن را ثابت نمی‌کند.</li>
+        </ol>
+        <p>نکتهٔ مهم در پاسخ اول این است که «پیش‌نیاز بودن» نتیجه است؛ علت فنی باید نیز گفته شود: <code>T13</code> چیزی را می‌سازد که <code>T12</code> مصرف می‌کند.</p>
+      </article>
+
+      <article class="entry user">
+        <h3><span class="label">تأیید کاربر</span></h3>
+        <p>«ببند»</p>
+      </article>
+    </section>
+
+    <section class="final-analysis">
+      <h2>تحلیل نهایی</h2>
+
+      <h3>۱. مشکل Dependency</h3>
+      <p>Task مصرف‌کنندهٔ دیتابیس پیش از Migration قرار گرفته است. این ترتیب معتبر نیست، زیرا Task مصرف‌کننده به ساختار دیتابیسی نیاز دارد که هنوز ایجاد نشده است. اگر <code>T13</code> Migration را ایجاد می‌کند و <code>T12</code> از جدول حاصل استفاده می‌کند، رابطهٔ صحیح چنین است:</p>
+      <blockquote><code>T13</code> پیش‌نیاز <code>T12</code> است؛ یا <code>T12</code> به <code>T13</code> وابسته است.</blockquote>
+      <p>پس باید Migration پیش از Task وابسته قرار گیرد و این رابطه در ترتیب یا Dependencyهای Tasks ثبت شود. Analyze این ناسازگاری را گزارش می‌کند، اما Taskها را اجرا یا خودکار جابه‌جا نمی‌کند؛ اجرای ترتیب اصلاح‌شده متعلق به مرحلهٔ Implement است.</p>
+
+      <h3>۲. مشکل Parallelism</h3>
+      <p>دو Task دارای نشانگر <code>[P]</code> باید مستقل و برای اجرای هم‌زمان امن باشند. اگر هر دو فایل مشترکی را تغییر دهند، این ادعا معتبر نیست؛ زیرا ممکن است Conflict، بازنویسی تغییرات یکدیگر یا کد ناسازگار ایجاد شود.</p>
+      <p>این وضعیت الزاماً به معنی وجود Dependency منطقی میان دو Task نیست. ممکن است هیچ‌کدام به خروجی دیگری نیاز نداشته باشد، اما به‌دلیل تغییر یک منبع مشترک نتوانند هم‌زمان اجرا شوند. راه اصلاح یکی از این دو است:</p>
+      <ul>
+        <li>حذف نشانگر <code>[P]</code> و تعیین ترتیب اجرای Taskها؛</li>
+        <li>بازطراحی مرز Taskها یا فایل‌ها به‌گونه‌ای که تغییرات واقعاً مستقل شوند.</li>
+      </ul>
+
+      <h3>۳. Findingهای مورد انتظار از Analyze</h3>
+      <p>Finding یعنی ایراد یا ناسازگاری مستندی که در بررسی کشف می‌شود، نه خودِ اجرای اصلاح. انتظار می‌رود Analyze دست‌کم این موارد را گزارش کند:</p>
+      <ol>
+        <li><strong>Dependency/Ordering Finding:</strong> Task وابسته به دیتابیس پیش از Migration قرار گرفته و در ترتیب فعلی ممکن است شکست بخورد.</li>
+        <li><strong>Parallelism Finding:</strong> دو Task با نشانگر <code>[P]</code> فایل مشترکی را تغییر می‌دهند و بنابراین برای اجرای موازی امن نیستند.</li>
+      </ol>
+      <p>هر Finding مناسب باید محل مشکل، شرح ناسازگاری، اثر احتمالی و پیشنهاد اصلاح را روشن کند.</p>
+
+      <h3>۴. آیا Coverage صددرصد آمادگی Implement را ثابت می‌کند؟</h3>
+      <p><strong>خیر.</strong> پوشش ۱۰۰٪ فقط ثابت می‌کند که برای هر Requirement دست‌کم یک Task مرتبط ثبت شده است. این معیار، وجود رابطه را می‌سنجد؛ نه کیفیت و کفایت آن را.</p>
+      <p>پیش از Implement باید بررسی شود که Taskها:</p>
+      <ul>
+        <li>شفاف، دقیق و قابل پیاده‌سازی باشند؛</li>
+        <li>تمام رفتار و محدودیت Requirement را واقعاً پوشش دهند؛</li>
+        <li>ترتیب و Dependencyهای صحیح داشته باشند؛</li>
+        <li>برچسب‌های Parallel معتبر داشته باشند و بر سر فایل یا منبع مشترک تعارض نکنند؛</li>
+        <li>با Specification و Plan ناسازگار نباشند.</li>
+      </ul>
+      <p>اگر خود Requirement مبهم باشد، Clarify لازم است؛ اما اگر Requirement روشن و Task ناقص، متعارض یا بدترتیب باشد، باید Plan یا Tasks اصلاح شود.</p>
+
+      <h3>نتیجهٔ نهایی</h3>
+      <p>Traceability یا پوشش Requirementها شرط لازم است، اما شرط کافی برای شروع Implement نیست. آمادگی واقعی زمانی به دست می‌آید که علاوه بر Coverage، کیفیت Taskها، ترتیب وابستگی‌ها و ایمنی اجرای موازی نیز بررسی و اصلاح شده باشند.</p>
+    </section>
+  </main>
+</body>
+</html>
