@@ -1,0 +1,16 @@
+{
+  "name": "changeflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Specification-driven change request API, without external dependencies",
+  "engines": { "node": ">=22.16.0" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "seed": "node src/admin.mjs init-demo",
+    "build": "node scripts/build.mjs",
+    "test": "node --test --experimental-test-isolation=none --test-reporter=spec tests/*.test.mjs",
+    "demo": "node scripts/demo.mjs",
+    "validate": "node scripts/validate.mjs"
+  }
+}

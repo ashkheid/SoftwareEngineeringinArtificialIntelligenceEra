@@ -1,50 +1,56 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# ChangeFlow Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Business rules are independent of transport
+Business decisions MUST live in Domain/Application. HTTP MUST only decode requests,
+invoke use cases and encode results. Domain MUST NOT import HTTP, persistence or the
+application layer. Application MUST NOT return HTTP status codes. Persistence MUST NOT
+decide who may approve. This keeps the same rules available to future entry points.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Identity and current authority govern every action
+All request data MUST require authenticated identity. Mutations MUST evaluate current
+roles, ownership and request state in the same atomic operation as persistence.
+Self-approval MUST be rejected even for a user with both roles. Identity/roles from
+request bodies or caller-selected headers MUST NOT be trusted. Secrets MUST NOT be
+stored in source, returned in errors or written to request logs.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Durable and atomic state
+Successful mutations MUST persist before success is returned. A stale command MUST NOT
+overwrite newer state; competing commands based on one version MUST have at most one
+winner. A failed command MUST leave content, state, version and review metadata unchanged.
+Approved content MUST be immutable. Transaction failures MUST roll back.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Traceable evidence rather than completion claims
+Requirements MUST map to tasks, implementation and evidence. Tests MUST include the six
+assignment scenarios and persisted-state assertions for sensitive failures. Source review
+MUST assess architecture and security separately from test results. Analyze MUST be
+read-only; Converge MUST only append remediation tasks, never fix application code.
+Run results MUST state actual commands/counts/failures. Human acceptance MUST NOT be
+claimed by the coding agent.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Small, extensible first release
+Use a single deployable API and the fewest modules needed for the above boundaries.
+New dependencies and abstractions MUST have a concrete requirement and documented reason.
+AI, RAG, MCP, workflow engines, frontend and distributed services are outside this release.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Scope and Constraints
+This constitution governs ChangeFlow and `specs/001-changeflow`, not the historical
+BlogSpecLab course samples. The assignment and five HTML analyses are the input sources.
+Use existing Spec Kit 1.4.0/Codex integration; do not reinstall it. Implementation choices
+belong in plan/research; behavior and reviewable assumptions belong in the specification.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Delivery Workflow
+Constitution -> Specify/Clarify -> Plan/Research -> Tasks -> Analyze -> Implement ->
+Build/Test/Validation -> Converge -> Implement outstanding tasks -> repeat affected checks.
+This task explicitly authorizes implementation, review and assignment build/test evidence
+without intermediate approval. No publication, commit or push is implied.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This is version 1.0.0, adopted under the user's delegated authority on 2026-11-16, not a
+claim of organizational or human acceptance. Changes must record rationale and affected
+specifications/tasks. Breaking principles require a major version, new principles a minor
+version, and wording corrections a patch. Review MUST identify exceptions explicitly;
+passing tests cannot waive a principle.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-11-16 | **Last Amended**: 2026-11-16

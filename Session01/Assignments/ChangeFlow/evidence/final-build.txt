@@ -1,0 +1,9 @@
+Command: node scripts/build.mjs
+Exit code: 0
+Duration ms: 6780
+
+STDOUT
+PASS: syntax checked 7 runtime modules; assembled dist/src and dist/package.json.
+JavaScript source is directly executable; no transpilation or external dependency restore.
+
+STDERR

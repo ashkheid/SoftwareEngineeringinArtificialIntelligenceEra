@@ -1,0 +1,259 @@
+Command: node --test --experimental-test-isolation=none --test-reporter=tap tests/architecture.test.mjs tests/cli.test.mjs tests/persistence.test.mjs tests/security.test.mjs tests/workflow.test.mjs
+Exit code: 0
+Duration ms: 15098
+
+STDOUT
+TAP version 13
+# Subtest: Constitution I: Domain imports no transport, application or storage modules
+ok 1 - Constitution I: Domain imports no transport, application or storage modules
+  ---
+  duration_ms: 4.4985
+  type: 'test'
+  ...
+# Subtest: Constitution I: Application and persistence do not depend on HTTP
+ok 2 - Constitution I: Application and persistence do not depend on HTTP
+  ---
+  duration_ms: 2.4663
+  type: 'test'
+  ...
+# Subtest: Constitution I: HTTP depends only on transport and symbolic errors
+ok 3 - Constitution I: HTTP depends only on transport and symbolic errors
+  ---
+  duration_ms: 0.804
+  type: 'test'
+  ...
+# Subtest: FR-015: actual CLI provisions only once and stores no plaintext tokens
+ok 4 - FR-015: actual CLI provisions only once and stores no plaintext tokens
+  ---
+  duration_ms: 1971.0666
+  type: 'test'
+  ...
+# Subtest: FR-015: CLI role removal, token revocation and deactivation affect a running API
+ok 5 - FR-015: CLI role removal, token revocation and deactivation affect a running API
+  ---
+  duration_ms: 2880.128
+  type: 'test'
+  ...
+# Subtest: FR-015: CLI rejects unknown/missing arguments and unknown roles/users
+ok 6 - FR-015: CLI rejects unknown/missing arguments and unknown roles/users
+  ---
+  duration_ms: 6203.2583
+  type: 'test'
+  ...
+# Subtest: FR-010: a stale edit cannot silently overwrite newer persisted content
+ok 7 - FR-010: a stale edit cannot silently overwrite newer persisted content
+  ---
+  duration_ms: 71.771
+  type: 'test'
+  ...
+# Subtest: FR-010/013: duplicate submit and stale commands leave all fields unchanged
+ok 8 - FR-010/013: duplicate submit and stale commands leave all fields unchanged
+  ---
+  duration_ms: 71.8124
+  type: 'test'
+  ...
+# Subtest: FR-010/014: a reviewer cannot approve unseen content after a correction round
+ok 9 - FR-010/014: a reviewer cannot approve unseen content after a correction round
+  ---
+  duration_ms: 61.6412
+  type: 'test'
+  ...
+# Subtest: FR-013: repeated creates have distinct identities; no accidental deduplication
+ok 10 - FR-013: repeated creates have distinct identities; no accidental deduplication
+  ---
+  duration_ms: 48.3016
+  type: 'test'
+  ...
+# Subtest: FR-011: a new application connection reads durable content and credentials
+ok 11 - FR-011: a new application connection reads durable content and credentials
+  ---
+  duration_ms: 49.6187
+  type: 'test'
+  ...
+# Subtest: FR-011/016: real SQLite write failure returns 503, rolls back and hides details
+ok 12 - FR-011/016: real SQLite write failure returns 503, rolls back and hides details
+  ---
+  duration_ms: 54.6274
+  type: 'test'
+  ...
+# Subtest: FR-011: a transaction rolls back an already executed statement on failure
+ok 13 - FR-011: a transaction rolls back an already executed statement on failure
+  ---
+  duration_ms: 57.1365
+  type: 'test'
+  ...
+# Subtest: FR-010: SQL compare-and-swap itself rejects a stale update
+ok 14 - FR-010: SQL compare-and-swap itself rejects a stale update
+  ---
+  duration_ms: 51.3975
+  type: 'test'
+  ...
+# Subtest: FR-011/016: another writer causes bounded busy failure, not false success
+ok 15 - FR-011/016: another writer causes bounded busy failure, not false success
+  ---
+  duration_ms: 97.3897
+  type: 'test'
+  ...
+# Subtest: FR-010: competing HTTP decisions have exactly one winner
+ok 16 - FR-010: competing HTTP decisions have exactly one winner
+  ---
+  duration_ms: 65.0842
+  type: 'test'
+  ...
+# Subtest: FR-010/011: independent workers race on one file; only one review commits
+ok 17 - FR-010/011: independent workers race on one file; only one review commits
+  ---
+  duration_ms: 183.7042
+  type: 'test'
+  ...
+# Subtest: FR-008: revocation committed before a worker action wins over an old token
+ok 18 - FR-008: revocation committed before a worker action wins over an old token
+  ---
+  duration_ms: 138.1775
+  type: 'test'
+  ...
+# Subtest: FR-008: an acquired action transaction excludes intervening role writes
+ok 19 - FR-008: an acquired action transaction excludes intervening role writes
+  ---
+  duration_ms: 33.7752
+  type: 'test'
+  ...
+# Subtest: FR-008: missing, forged and malformed credentials cannot read or create
+ok 20 - FR-008: missing, forged and malformed credentials cannot read or create
+  ---
+  duration_ms: 44.975
+  type: 'test'
+  ...
+# Subtest: FR-009: visibility separates own requests and reviewers non-Draft scope
+ok 21 - FR-009: visibility separates own requests and reviewers non-Draft scope
+  ---
+  duration_ms: 77.9588
+  type: 'test'
+  ...
+# Subtest: FR-009: pagination is bounded, stable and does not duplicate visible rows
+ok 22 - FR-009: pagination is bounded, stable and does not duplicate visible rows
+  ---
+  duration_ms: 75.6013
+  type: 'test'
+  ...
+# Subtest: FR-008/015: committed role revocation affects the next decision with the same token
+ok 23 - FR-008/015: committed role revocation affects the next decision with the same token
+  ---
+  duration_ms: 268.4076
+  type: 'test'
+  ...
+# Subtest: FR-008/015: token revocation and deactivation reject subsequent writes without mutation
+ok 24 - FR-008/015: token revocation and deactivation reject subsequent writes without mutation
+  ---
+  duration_ms: 115.6964
+  type: 'test'
+  ...
+# Subtest: FR-002/003/008: visibility grants neither ownership nor a missing action role
+ok 25 - FR-002/003/008: visibility grants neither ownership nor a missing action role
+  ---
+  duration_ms: 101.942
+  type: 'test'
+  ...
+# Subtest: FR-012: exact shape and text limits reject forged or invalid content
+ok 26 - FR-012: exact shape and text limits reject forged or invalid content
+  ---
+  duration_ms: 149.2733
+  type: 'test'
+  ...
+# Subtest: FR-012: version is mandatory and must be a positive safe integer
+ok 27 - FR-012: version is mandatory and must be a positive safe integer
+  ---
+  duration_ms: 99.4756
+  type: 'test'
+  ...
+# Subtest: FR-016: malformed JSON, content type, oversized body and invalid id have defined errors
+ok 28 - FR-016: malformed JSON, content type, oversized body and invalid id have defined errors
+  ---
+  duration_ms: 108.7919
+  type: 'test'
+  ...
+# Subtest: FR-016: methods and routes are explicit and do not expose unsupported delete
+ok 29 - FR-016: methods and routes are explicit and do not expose unsupported delete
+  ---
+  duration_ms: 56.0604
+  type: 'test'
+  ...
+# Subtest: F1 FR-011/012: malformed Unicode is rejected before it can change in storage
+ok 30 - F1 FR-011/012: malformed Unicode is rejected before it can change in storage
+  ---
+  duration_ms: 119.3304
+  type: 'test'
+  ...
+# Subtest: F1 FR-011: valid Persian and supplementary Unicode round trip without content loss
+ok 31 - F1 FR-011: valid Persian and supplementary Unicode round trip without content loss
+  ---
+  duration_ms: 94.1308
+  type: 'test'
+  ...
+# Subtest: FR-001: creates and persists a Draft owned by the authenticated requester
+ok 32 - FR-001: creates and persists a Draft owned by the authenticated requester
+  ---
+  duration_ms: 38.1381
+  type: 'test'
+  ...
+# Subtest: FR-002/003: owner edits Draft then submits it
+ok 33 - FR-002/003: owner edits Draft then submits it
+  ---
+  duration_ms: 103.9083
+  type: 'test'
+  ...
+# Subtest: FR-006: dual-role owner cannot approve or return their own request
+ok 34 - FR-006: dual-role owner cannot approve or return their own request
+  ---
+  duration_ms: 57.4155
+  type: 'test'
+  ...
+# Subtest: FR-004/014: independent reviewer approves the exact pending version
+ok 35 - FR-004/014: independent reviewer approves the exact pending version
+  ---
+  duration_ms: 52.1887
+  type: 'test'
+  ...
+# Subtest: FR-007: Approved rejects edits and further transitions without any persisted changes
+ok 36 - FR-007: Approved rejects edits and further transitions without any persisted changes
+  ---
+  duration_ms: 67.4748
+  type: 'test'
+  ...
+# Subtest: FR-005: return, revise, resubmit and approve complete the durable correction cycle
+ok 37 - FR-005: return, revise, resubmit and approve complete the durable correction cycle
+  ---
+  duration_ms: 62.7574
+  type: 'test'
+  ...
+# Subtest: FR-005/007: missing feedback and PendingReview edits do not mutate data
+ok 38 - FR-005/007: missing feedback and PendingReview edits do not mutate data
+  ---
+  duration_ms: 86.7719
+  type: 'test'
+  ...
+# Subtest: FR-004: Draft cannot be approved even by its dual-role owner
+ok 39 - FR-004: Draft cannot be approved even by its dual-role owner
+  ---
+  duration_ms: 53.8418
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14030.7672
+
+STDERR
+(node:165548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:165548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:165548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:165548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,0 +1,54 @@
+{
+  "recordedAt": "2026-11-16T13:53:53.621Z",
+  "node": "v22.23.4",
+  "sqlite": "3.53.4",
+  "platform": "win32",
+  "architecture": "x64",
+  "label": "final",
+  "results": [
+    {
+      "name": "build",
+      "command": "node scripts/build.mjs",
+      "exitCode": 0,
+      "evidence": "final-build.txt"
+    },
+    {
+      "name": "test",
+      "command": "node --test --experimental-test-isolation=none --test-reporter=tap tests/architecture.test.mjs tests/cli.test.mjs tests/persistence.test.mjs tests/security.test.mjs tests/workflow.test.mjs",
+      "exitCode": 0,
+      "evidence": "final-test.txt",
+      "tests": 39,
+      "pass": 39,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    {
+      "name": "demo",
+      "command": "node scripts/demo.mjs",
+      "exitCode": 0,
+      "evidence": "final-demo.txt"
+    }
+  ],
+  "sha256": {
+    "src/admin.mjs": "581ed0c8fefc617951e5c9c4c376fefde0ece7343504bcde4b5f0730748e58fc",
+    "src/application.mjs": "e867315212ed141dfb5fa065650b750021ac4173d283162855eeb4117478c726",
+    "src/database.mjs": "a4152774e2dee9aa84a77cbf74f56190f0926e2be3d1db374587a7b5745b7232",
+    "src/domain.mjs": "edbf4ce825cc1a27f67aa2b34646c84333ed301c500763cedc88d28323b1d874",
+    "src/errors.mjs": "3b45e0fa166ae7eeaac857ad965231e46f9b8f33aed937c2abb31e7252412fd2",
+    "src/http.mjs": "d8926d502f44024368013b3fd80e2b727bb2f5fbf8965590f0a4960e40cd310e",
+    "src/server.mjs": "f33d4fbfe044a4588c80c946649dcea1d43d532a0a4ea714274169e91a8312c1",
+    "tests/architecture.test.mjs": "528563196c7d6bfbf23daa004e57559dfc2db240c62579dc0300392f19f07c06",
+    "tests/cli.test.mjs": "ff668d6db9f349d66be23b427ac9cf22b7dd5fef42761efe00c60e8541062bf6",
+    "tests/helpers/fixture.mjs": "eaff9890e58e594bbc338b044affce584b5dd7486f7351cd26fc4ba5ca7c5ffa",
+    "tests/helpers/race-worker.mjs": "fd5484172b5ebf60c0fc529001e6c5dcc75a4480953690f3dd82c583cc65cfaf",
+    "tests/persistence.test.mjs": "e80d73df7208b7f586f8220f2800fe0a4fe3d86998f9b7840a984d1c46bd9b58",
+    "tests/security.test.mjs": "7271ffad326e7d238a4a02d772c6ed878f6aa5128f00b356e1286c3017067819",
+    "tests/workflow.test.mjs": "e4831c400192b68dc220afdebb3f06a4b27eac1bab6a86c06386e61a46890af0",
+    "scripts/build.mjs": "be3bffccb12413e27cee3f865c066d22334e87fcefb68abc0223140a52c862fc",
+    "scripts/demo.mjs": "9edb3489491fe5122cdb40f0d0088ac451d6653c085884046bb5070eb15a54c9",
+    "scripts/validate.mjs": "20062647592a45fe098d112dd49c4fd17a640fc45d574aeb20ad7a66750de74a",
+    "package.json": "64823347eed780c333101ba11961ea00c45dab7bd24b8e1878d225b35e145541"
+  }
+}
