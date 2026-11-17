@@ -40,7 +40,7 @@ Independent test: distinct writer connections race; fresh persisted read proves 
 ## Phase 7: Evidence and delivery
 - [x] T018 [P] Add import-boundary checks to `tests/architecture.test.mjs` and inspect source policy placement (Constitution I, SC-005).
 - [x] T019 [P] Add `scripts/build.mjs` and built-package HTTP `scripts/demo.mjs` (SC-001,002,005).
-- [x] T020 Write app `README.md` and `docs/answers/session-01.md`, linking the five original HTML analyses, stack, limitations and actual repository URL (SC-005).
+- [x] T020 Write app `README.md` and `docs/answers/session-01.md`, covering the conceptual answers, stack, limitations and actual repository URL (SC-005). The answer entry now links to the canonical `Session01/Assignments/descriptive-answers/session-01.md` after delivery reorganization.
 - [x] T021 Execute full tests, build and built-package demo; capture real outputs in app `evidence/`; write `reports/validation.md` and `reports/traceability.md` (SC-001–005).
 - [x] T022 Run read-only Converge assessment; append only actionable new tasks to this file; archive findings separately in `reports/converge.md` and implement any appended tasks (SC-005).
 

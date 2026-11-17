@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="راهنمای قدم‌به‌قدم ساخت ChangeFlow با Spec Kit؛ دلیل هر سند، تصمیم طراحی، فایل کد، آزمون و نتیجهٔ بازبینی.">
+  <meta name="theme-color" content="#006839">
+  <title>از صورت تمرین تا ChangeFlow — راهنمای Spec Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#006839; --orange:#F0851F; --deep:#0D2F22; --ink:#20342b; --soft:#f0f8f3; --line:#d7e6dc; }
+    * { box-sizing:border-box; }
+    html { scroll-padding-top:2rem; }
+    body { margin:0; background:#fff; color:var(--ink); font-family:"Vazirmatn",Tahoma,sans-serif; font-optical-sizing:auto; font-weight:400; font-style:normal; font-size:17px; line-height:2; }
+    .page { width:min(100% - 40px,1060px); margin-inline:auto; }
+    header { padding:48px 0 28px; border-bottom:3px solid var(--orange); }
+    .eyebrow { color:var(--deep); font-size:.9rem; font-weight:600; margin:0; }
+    h1,h2,h3,h4 { color:var(--green); line-height:1.65; font-weight:750; }
+    h1 { font-size:clamp(1.8rem,4vw,2.65rem); margin:12px 0 18px; }
+    h2 { font-size:1.55rem; margin:0 0 24px; }
+    h3 { font-size:1.15rem; margin:30px 0 12px; }
+    h4 { font-size:1rem; margin:22px 0 10px; }
+    p { margin:0 0 18px; }
+    a { color:var(--green); text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
+    a:hover { color:var(--deep); }
+    a:focus-visible,summary:focus-visible,.table-wrap:focus-visible { outline:3px solid var(--orange); outline-offset:5px; }
+    .skip { position:absolute; top:-80px; right:20px; background:white; padding:8px 16px; z-index:2; }
+    .skip:focus { top:8px; }
+    .lead { max-width:82ch; font-size:1.08rem; }
+    .meta { color:var(--deep); font-size:.9rem; margin:18px 0 0; }
+    nav { margin:28px 0; padding:22px 26px; background:var(--soft); border:1px solid var(--line); border-radius:8px; }
+    nav h2 { font-size:1.1rem; margin:0 0 12px; }
+    nav ol { display:grid; grid-template-columns:1fr 1fr; gap:4px 32px; margin:0; padding-inline-start:24px; }
+    main section { padding:38px 0; border-bottom:1px solid var(--line); }
+    ul,ol { padding-inline-start:26px; margin:12px 0 22px; }
+    li { margin:7px 0; }
+    .note { padding:20px 24px; margin:24px 0; background:var(--soft); border:1px solid var(--line); border-inline-start:4px solid var(--orange); border-radius:7px; }
+    .note p:last-child,.note ul:last-child { margin-bottom:0; }
+    strong { color:var(--deep); font-weight:750; }
+    .table-wrap { overflow-x:auto; margin:20px 0 26px; border:1px solid var(--line); border-radius:7px; }
+    table { width:100%; border-collapse:collapse; font-size:.94rem; }
+    caption { text-align:start; padding:12px 16px; color:var(--deep); font-weight:650; }
+    th { background:var(--soft); color:var(--deep); font-weight:700; }
+    th,td { padding:13px 16px; text-align:start; vertical-align:top; border-bottom:1px solid var(--line); }
+    tr:last-child td { border-bottom:0; }
+    th:first-child { min-width:150px; }
+    code { direction:ltr; unicode-bidi:isolate; display:inline-block; font: .88em/1.7 Consolas,"Courier New",monospace; background:#edf3ef; padding:1px 5px; border-radius:4px; overflow-wrap:anywhere; }
+    pre { direction:ltr; text-align:left; overflow-x:auto; margin:18px 0 24px; padding:20px; color:var(--deep); background:#f6f9f7; border:1px solid var(--line); border-inline-start:3px solid var(--orange); border-radius:7px; font-size:.9rem; line-height:1.8; }
+    pre code { background:none; display:block; padding:0; overflow-wrap:normal; }
+    blockquote { margin:22px 0; padding:14px 22px; border-inline-start:3px solid var(--orange); background:var(--soft); }
+    .flow { direction:ltr; text-align:center; font-family:Consolas,monospace; padding:18px; border-block:1px solid var(--orange); overflow-wrap:anywhere; }
+    details { margin:16px 0; padding:16px 20px; border:1px solid var(--line); border-radius:7px; }
+    summary { color:var(--green); cursor:pointer; font-weight:700; }
+    details[open] summary { margin-bottom:18px; }
+    .back { font-size:.88rem; margin-top:24px; }
+    footer { padding:28px 0 42px; color:var(--deep); font-size:.9rem; }
+    @media(max-width:680px) { body { font-size:16px; } .page { width:calc(100% - 28px); } header { padding-top:30px; } nav ol { grid-template-columns:1fr; } nav,.note { padding:18px; } h2 { font-size:1.35rem; } th,td { padding:10px 12px; } table { min-width:590px; } details { padding:14px; } }
+    @media print { body { font-size:11pt; } .page { width:100%; } .skip,.back { display:none; } header { padding-top:0; } section { break-before:auto; } h2,h3,summary { break-after:avoid; } tr { break-inside:avoid; } details > * { display:block !important; } .table-wrap { overflow:visible; } table { min-width:0; } pre { white-space:pre-wrap; } a { color:var(--deep); } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">رفتن به متن راهنما</a>
+  <div class="page">
+    <header id="top">
+      <p class="eyebrow">جلسهٔ اول · راهنمای بخش عملی</p>
+      <h1>از صورت تمرین تا ChangeFlow</h1>
+      <p class="lead">این راهنما توضیح می‌دهد چگونه یک مسئلهٔ کوتاه با کمک Spec Kit به مشخصات، تصمیم‌های طراحی، کد و شواهد قابل بررسی تبدیل شد. برای هر مرحله می‌پرسیم: چه چیزی لازم بود، چه نوشتیم و چرا آن محتوا یا آزمون لازم شد؟</p>
+      <p class="meta">مبنای مثال‌ها: پیاده‌سازی ثبت‌شده در کامیت <code>4831e00</code> · Node.js و SQLite · مستندات با مسیرهای فعلی مخزن</p>
+    </header>
+
+    <nav aria-label="فهرست راهنما">
+      <h2>مسیر مطالعه</h2>
+      <ol>
+        <li><a href="#start">پیش‌نیاز مفهومی و مسئلهٔ ما</a></li>
+        <li><a href="#map">نقشهٔ مسیر و اسناد</a></li>
+        <li><a href="#init">آماده‌سازی Spec Kit</a></li>
+        <li><a href="#constitution">چرا Constitution نوشتیم؟</a></li>
+        <li><a href="#spec">چگونه مسئله به Spec تبدیل شد؟</a></li>
+        <li><a href="#clarify">ابهام‌ها و فرض‌های آشکار</a></li>
+        <li><a href="#design">دلیل طراحی، داده و قرارداد API</a></li>
+        <li><a href="#tasks">Tasks و بررسی پیش از ساخت</a></li>
+        <li><a href="#code">مسیر یک درخواست در کد</a></li>
+        <li><a href="#tests">دلیل نوشتن هر آزمون</a></li>
+        <li><a href="#evidence">Build و شواهد واقعی اجرا</a></li>
+        <li><a href="#converge">چرخهٔ بازبینی و اصلاح واقعی</a></li>
+        <li><a href="#files">فایل‌های تکمیلی چه کاری می‌کنند؟</a></li>
+        <li><a href="#run">اجرای پروژه و ادامهٔ توسعه</a></li>
+      </ol>
+    </nav>
+
+    <main id="content">
+      <section id="start" aria-labelledby="start-title">
+        <h2 id="start-title">۱. پیش از خواندن فایل‌ها، مسئله را بفهمیم</h2>
+        <p>فرض کنید کارمندی پیشنهاد می‌دهد «خروجی CSV به سامانه اضافه شود». ابتدا پیش‌نویس می‌نویسد، آن را ارسال می‌کند و فرد دیگری بررسی می‌کند. بازبین یا تأیید می‌کند یا با دلیل برای اصلاح برمی‌گرداند. حتی اگر کارمند خودش بازبین هم باشد، نمی‌تواند پیشنهاد خودش را تأیید کند.</p>
+        <p>این همان مسئلهٔ <a href="Assignment.md">صورت تمرین</a> است. نتیجهٔ مورد انتظار یک HTTP API است: برنامه‌ای که درخواست شبکه می‌گیرد و پاسخ JSON می‌دهد. رابط گرافیکی، اجرای واقعی پیشنهاد و قابلیت‌های AI در محدودهٔ این نسخه نیستند.</p>
+        <div class="flow" aria-label="گردش وضعیت‌ها">Draft → PendingReview → Approved<br>PendingReview → ChangesRequested → PendingReview</div>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="واژه‌های پایه">
+          <table><thead><tr><th scope="col">واژه</th><th scope="col">معنای آن در این پروژه</th></tr></thead><tbody>
+            <tr><td>SDD</td><td>توسعهٔ مبتنی بر مشخصات: پیش از نوشتن کد، رفتار مورد انتظار را روشن می‌کنیم و بعد نتیجه را با همان رفتار می‌سنجیم.</td></tr>
+            <tr><td>Spec Kit</td><td>قالب‌ها، راهنماها و اسکریپت‌هایی برای منظم‌کردن این فرایند. کیفیت نیازمندی یا صحت کد را خودکار تضمین نمی‌کند.</td></tr>
+            <tr><td>Coding Agent</td><td>در این کار Codex اسناد، کد و آزمون‌ها را تهیه کرده و ابزارها را اجرا کرده است. اختیار تصمیم محصولی از صورت تمرین و دستور کاربر می‌آید.</td></tr>
+            <tr><td>Artifact</td><td>یک خروجی قابل مراجعه؛ مانند <code>spec.md</code>، فایل آزمون یا گزارش اجرای واقعی.</td></tr>
+            <tr><td>Requirement / Task</td><td>نیازمندی می‌گوید چه رفتاری لازم است؛ Task کاری مشخص برای ساخت یا اثبات آن رفتار است.</td></tr>
+            <tr><td>Persistence / Transaction</td><td>Persistence یعنی داده پس از بستن برنامه باقی بماند. Transaction مجموعهٔ عملیات مرتبط را یک‌جا ثبت می‌کند یا در صورت شکست برمی‌گرداند.</td></tr>
+          </tbody></table>
+        </div>
+        <div class="note"><p><strong>اگر تازه‌کار هستید:</strong> بخش‌ها را به ترتیب بخوانید و مثال «تأیید درخواست» را دنبال کنید. اگر با برنامه‌نویسی آشنا هستید، از پیوند هر بخش به سند یا کد واقعی بروید؛ بخش آزمون‌ها و چرخهٔ اصلاح دلیل جزئیات فنی را نشان می‌دهند.</p></div>
+      </section>
+
+      <section id="map" aria-labelledby="map-title">
+        <h2 id="map-title">۲. مسیر کار؛ هر خروجی به سؤال متفاوتی پاسخ می‌دهد</h2>
+        <p>این فایل‌ها گزارش‌های تکراری نیستند. مثلاً ممنوعیت تأیید درخواست خود در Spec رفتار محصول است؛ محل اجرای آن در Plan مشخص می‌شود؛ Tasks کار ساختش را تعریف می‌کند و آزمون، اجرای آن را می‌سنجد.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="مراحل و خروجی‌ها">
+          <table><thead><tr><th scope="col">مرحله</th><th scope="col">سؤالی که پاسخ می‌دهد</th><th scope="col">خروجی قابل خواندن</th></tr></thead><tbody>
+            <tr><td>Init</td><td>ابزارهای لازم در همین مخزن آماده‌اند؟</td><td><a href="../../specs/001-changeflow/reports/init.md">گزارش آماده‌سازی</a></td></tr>
+            <tr><td>Constitution</td><td>چه اصولی در کل پروژه باید رعایت شوند؟</td><td><a href="../../.specify/memory/constitution.md">اصول پروژه</a></td></tr>
+            <tr><td>Specify / Clarify</td><td>چه رفتاری می‌خواهیم و کدام تصمیم‌ها هنوز فرض‌اند؟</td><td><a href="../../specs/001-changeflow/spec.md">مشخصات و Clarifications</a></td></tr>
+            <tr><td>Plan / Research</td><td>چطور بسازیم و چرا این راه‌حل را انتخاب کنیم؟</td><td><a href="../../specs/001-changeflow/plan.md">طرح</a>، <a href="../../specs/001-changeflow/research.md">تحقیق</a>، <a href="../../specs/001-changeflow/data-model.md">مدل داده</a> و <a href="../../specs/001-changeflow/contracts/http-api.md">قرارداد API</a></td></tr>
+            <tr><td>Tasks / Analyze</td><td>چه کارهایی با چه ترتیبی انجام شوند؟ آیا نقشه سازگار است؟</td><td><a href="../../specs/001-changeflow/tasks.md">کارها</a> و <a href="../../specs/001-changeflow/reports/analyze.md">گزارش تحلیل</a></td></tr>
+            <tr><td>Implement</td><td>رفتار چگونه در برنامه محقق می‌شود؟</td><td><a href="ChangeFlow/src/">کد</a> و <a href="ChangeFlow/tests/">آزمون‌ها</a></td></tr>
+            <tr><td>Build / Test / Validation</td><td>چه چیزی واقعاً اجرا شد و چه شواهدی داریم؟</td><td><a href="../../specs/001-changeflow/reports/validation.md">گزارش اعتبارسنجی</a> و <a href="ChangeFlow/evidence/">خروجی خام</a></td></tr>
+            <tr><td>Converge</td><td>بین هدف مستند و کد فعلی چه فاصله‌ای مانده؟</td><td><a href="../../specs/001-changeflow/reports/converge.md">دو دور تطبیق و نتیجهٔ اصلاح</a></td></tr>
+          </tbody></table>
+        </div>
+        <p>مسیر همیشه یک خط مستقیم نیست. اگر بازبینی ایرادی پیدا کند، کار تازه ثبت می‌شود، Implement آن را اصلاح می‌کند و شواهد دوباره تهیه می‌شوند. نمونهٔ واقعی همین بازگشت را در <a href="#converge">بخش ۱۲</a> می‌بینید.</p>
+      </section>
+
+      <section id="init" aria-labelledby="init-title">
+        <h2 id="init-title">۳. Init؛ از امکانات همین مخزن شروع شد</h2>
+        <p>Spec Kit نسخهٔ ۱٫۴٫۰ و اتصال Codex از قبل در مخزن وجود داشتند؛ نصب دوباره انجام نشد. فایل‌های <a href="../../.specify/init-options.json"><code>init-options.json</code></a>، <a href="../../.specify/integration.json"><code>integration.json</code></a> و <a href="../../.specify/integrations/codex.manifest.json"><code>codex.manifest.json</code></a> زمینهٔ آماده‌سازی و اتصال را نشان می‌دهند.</p>
+        <p>مهارت‌های محلی Constitution، Specify، Clarify، Plan، Tasks، Analyze، Implement و Converge راهنمای کار بودند. اسکریپت‌های موجود برای یافتن قالب، آماده‌کردن Plan و Tasks و بررسی پیش‌نیازها استفاده شدند. محتوای اختصاصی ChangeFlow بر اساس تمرین نوشته شد؛ صرف اجرای اسکریپت، نیازمندی درست تولید نمی‌کند.</p>
+        <p>پوشهٔ <code>specs/001-changeflow</code> محل اسناد این قابلیت است. عدد و نام پوشه آن را از قابلیت‌های بعدی جدا می‌کند؛ این نام به‌خودی‌خود به معنی ساخته‌شدن یک شاخهٔ Git نیست. انتخاب فعالِ این پوشه در <code>.specify/feature.json</code> وضعیت محلی ابزار است و وارد Git نمی‌شود.</p>
+        <div class="note"><p><strong>برای ادامه در یک clone تازه:</strong> از ریشهٔ مخزن متغیر زیر را در همان نشست PowerShell تنظیم کنید تا اسکریپت‌ها اسناد این قابلیت را پیدا کنند. این فرمان سرور برنامه را اجرا نمی‌کند.</p><pre><code>$env:SPECIFY_FEATURE_DIRECTORY = 'specs/001-changeflow'</code></pre></div>
+        <p>محدودیت اجرای PowerShell در محیط ساخت با فراخوانی اسکریپت شناخته‌شده و گزینهٔ پردازشی <code>-ExecutionPolicy Bypass</code> حل شد؛ سیاست دائمی سیستم تغییر نکرد. جزئیات واقعی این مرحله در گزارش Init ثبت شده است.</p>
+      </section>
+
+      <section id="constitution" aria-labelledby="constitution-title">
+        <h2 id="constitution-title">۴. Constitution؛ قانون‌هایی که با سبزشدن تست کنار نمی‌روند</h2>
+        <p>در قالب خالی Constitution پنج اصل ثبت شد. این‌ها برای ChangeFlow هستند و پروژه‌های نمونهٔ قبلی درس را بازطراحی نمی‌کنند.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="دلیل اصول معماری">
+          <table><thead><tr><th scope="col">اصل</th><th scope="col">چرا نوشته شد؟</th><th scope="col">اثر قابل مشاهده</th></tr></thead><tbody>
+            <tr><td>۱. استقلال منطق از HTTP</td><td>قاعدهٔ تأیید باید برای هر مسیر ورود آینده معتبر بماند.</td><td>قواعد در Domain/Application هستند؛ HTTP فقط ورودی و پاسخ را مدیریت می‌کند.</td></tr>
+            <tr><td>۲. هویت و مجوز فعلی</td><td>نقشی که دیروز معتبر بوده ممکن است امروز لغو شده باشد.</td><td>توکن، فعال‌بودن و نقش از دیتابیس و داخل تراکنش خوانده می‌شوند.</td></tr>
+            <tr><td>۳. دوام و ثبت یکپارچه</td><td>پاسخ موفق بدون ذخیره یا بازنویسی تغییر تازه‌تر، اعتماد به تأیید را از بین می‌برد.</td><td>ذخیره پیش از پاسخ، شرط نسخه و Rollback هنگام شکست.</td></tr>
+            <tr><td>۴. شاهد قابل ردیابی</td><td>تیک Task یا جملهٔ «تمام شد» اثبات رفتار نیست.</td><td>هر نیاز به کار، کد و شاهد وصل می‌شود؛ خروجی واقعی اجرا نگهداری می‌شود.</td></tr>
+            <tr><td>۵. نسخهٔ اولیهٔ کوچک</td><td>پیچیدگی اضافه، حل این تمرین را بهتر نمی‌کند.</td><td>یک API، یک دیتابیس فایل‌محور و بدون وابستگی npm.</td></tr>
+          </tbody></table>
+        </div>
+        <p>واژهٔ <code>MUST</code> در این سند یعنی الزام، نه پیشنهاد. مثلاً اگر تمام آزمون‌ها موفق باشند ولی شرط مالکیت داخل endpoint نوشته شده باشد، اصل اول همچنان نقض شده است. به همین دلیل بررسی معماری جدا از آزمون رفتاری لازم شد.</p>
+        <p>نسخهٔ اجرایی اولیه با Constitution ۱٫۰٫۰ ساخته شد. ویرایش مستندی ۱٫۰٫۱ فقط مسیر مرجع پاسخ‌های تشریحی را به‌روز کرده و معنی این پنج اصل را تغییر نداده است.</p>
+      </section>
+
+      <section id="spec" aria-labelledby="spec-title">
+        <h2 id="spec-title">۵. Specify؛ تبدیل جمله‌های تمرین به رفتار قابل سنجش</h2>
+        <p><a href="../../specs/001-changeflow/spec.md">Spec</a> چهار داستان کاربری دارد: ثبت و ارسال، بازبینی و اصلاح، دسترسی با مجوز فعلی، و حفظ داده هنگام تعارض یا خرابی. هر داستان چهار سناریوی پذیرش دارد؛ در مجموع ۱۶ سناریو.</p>
+        <p>داستان کاربری هدف یک فرد را بیان می‌کند. سناریوی پذیرش دقیق‌تر است: <strong>Given</strong> یعنی وضعیت اولیه، <strong>When</strong> یعنی عملی که انجام می‌شود و <strong>Then</strong> یعنی نتیجه‌ای که باید ببینیم.</p>
+        <blockquote>وقتی یک درخواست PendingReview متعلق به کاربرِ دارای هر دو نقش است، اگر همان کاربر آن را تأیید کند، عملیات باید رد شود و دادهٔ ذخیره‌شده بدون تغییر بماند.</blockquote>
+        <p>عبارت «هر دو نقش» راه میان‌بُر احتمالی را می‌بندد. عبارت «داده بدون تغییر» اجازه نمی‌دهد صرفاً با برگرداندن کد خطا، آزمون را موفق بدانیم؛ ممکن است برنامه پیش از پاسخ خطا، دیتابیس را تغییر داده باشد.</p>
+        <h3>چرا FR و SC شماره دارند؟</h3>
+        <p>شانزده نیازمندی با شناسهٔ <code>FR-001</code> تا <code>FR-016</code> ثبت شده‌اند. برای مثال <code>FR-006</code> منع تأیید درخواست خود و <code>FR-010</code> جلوگیری از بازنویسی با نسخهٔ قدیمی است. این شناسه‌ها در Tasks و نام آزمون‌ها تکرار می‌شوند تا مسیر هر نیاز گم نشود.</p>
+        <p>پنج معیار موفقیت با <code>SC</code> مشخص شده‌اند: عبور شش سناریوی اجباری، تکمیل چرخهٔ اصلاح، یک برنده در رقابت و نبود تغییر ناقص، اثر مجوز فعلی و مشاهدهٔ مجاز، و تحویل قابل ردیابی با گزارش واقعی. این‌ها نتیجهٔ قابل سنجش‌اند؛ «کد خوب باشد» معیار قابل اندازه‌گیری نیست.</p>
+        <div class="note"><p><strong>نمونهٔ تفاوت نیاز و راه‌حل:</strong> «نسخهٔ قدیمی نباید تغییر جدیدتر را بازنویسی کند» نیاز است. انتخاب <code>BEGIN IMMEDIATE</code> و شرط نسخه در SQL، راه‌حل طراحی برای اجرای آن نیاز است و در Plan/Research توضیح داده شده است.</p></div>
+      </section>
+
+      <section id="clarify" aria-labelledby="clarify-title">
+        <h2 id="clarify-title">۶. Clarify؛ چیزی را که تمرین نگفته، پنهانی قطعی نکنیم</h2>
+        <p>منع تأیید درخواست خود از ابتدا قاعدهٔ قطعی صورت تمرین بود. اما حذف درخواست یا دامنهٔ مشاهده مشخص نبود. کاربر اجازهٔ پیشبرد کار بدون توقف برای تأیید داده بود؛ بنابراین هشت فرض قابل بازبینی در بخش Clarifications ثبت شد. گفت‌وگوی ساختگی با مالک محصول ثبت نشد.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="فرض‌های محصول">
+          <table><thead><tr><th scope="col">فرض</th><th scope="col">تصمیم این نسخه</th><th scope="col">چرا باید آشکار باشد؟</th></tr></thead><tbody>
+            <tr><td>A1 · حذف و اجرا</td><td>حذف، لغو و اجرای واقعی تغییر بیرون از محدوده‌اند.</td><td>ساخت مسیر DELETE از روی حدس، توسعهٔ دامنهٔ تمرین است.</td></tr>
+            <tr><td>A2 · مشاهده</td><td>Requester درخواست‌های خودش؛ Reviewer درخواست‌های غیر Draft؛ دو نقش، اجتماع این دسترسی‌ها.</td><td>حق مشاهده با حق ویرایش یا تأیید یکی نیست.</td></tr>
+            <tr><td>A3 · برگشت به خود</td><td>برگشت‌دادن درخواست خود نیز ممنوع است.</td><td>تمرین صریحاً دربارهٔ Self-Approval گفته بود؛ این گسترش محدود باید فرض نام‌دار باشد.</td></tr>
+            <tr><td>A4 · لغو مجوز</td><td>لغو ثبت‌شده پیش از عملیات اثر می‌کند؛ عملیات هم‌زمان ترتیب تراکنشی دارند.</td><td>باید بدانیم «مجوز فعلی» در یک رقابت دقیقاً چه معنایی دارد.</td></tr>
+            <tr><td>A5 · تکرار</td><td>ایجاد تکراری دو درخواست می‌سازد؛ تکرار تغییر با نسخهٔ مصرف‌شده رد می‌شود.</td><td>بدون قرارداد روشن، مشتری نمی‌داند تکرار فرمان چه اثری دارد.</td></tr>
+            <tr><td>A6 · اصلاح</td><td>فقط مالک با نقش فعلی Requester در Draft یا ChangesRequested ویرایش/ارسال می‌کند؛ بازخورد لازم است.</td><td>از تغییر محتوا هنگام بررسی و برگشت بی‌دلیل جلوگیری می‌کند.</td></tr>
+            <tr><td>A7 · ورودی</td><td>عنوان تا ۲۰۰، شرح تا ۱۰٬۰۰۰ و دلیل/بازخورد تا ۲٬۰۰۰ نویسه پس از trim؛ متن معتبر Unicode، بدون NUL و فیلد اضافی.</td><td>مرز پذیرش داده و معنی «محتوای معتبر» باید آزمون‌پذیر باشد.</td></tr>
+            <tr><td>A8 · محیط</td><td>نسخهٔ آموزشی محلی با کاربران از پیش ساخته‌شده؛ بدون ثبت‌نام، SSO یا UI.</td><td>مکانیزم سادهٔ هویت را نباید زیرساخت آمادهٔ استقرار عمومی معرفی کنیم.</td></tr>
+          </tbody></table>
+        </div>
+        <p>فرض‌ها تصمیم تأییدشدهٔ سازمان نیستند. اگر در جلسهٔ بعد مثلاً محدودهٔ تیمی لازم شود، ابتدا Spec و فرض A2 اصلاح می‌شوند؛ سپس طراحی، Taskها و کد متناسب با آن تغییر می‌کنند.</p>
+      </section>
+
+      <section id="design" aria-labelledby="design-title">
+        <h2 id="design-title">۷. Plan و Research؛ دلیل هر انتخاب فنی</h2>
+        <p><a href="../../specs/001-changeflow/research.md">Research</a> گزینه‌ها و پیامد انتخاب را نگه می‌دارد؛ <a href="../../specs/001-changeflow/plan.md">Plan</a> همان تصمیم‌ها را به ساختار فایل‌ها، قرارداد ماژول‌ها و ترتیب اجرا تبدیل می‌کند.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="انتخاب‌های طراحی">
+          <table><thead><tr><th scope="col">تصمیم</th><th scope="col">دلیل انتخاب</th><th scope="col">هزینه یا گزینهٔ کنارگذاشته‌شده</th></tr></thead><tbody>
+            <tr><td>Node.js و ماژول‌های داخلی</td><td>Runtime موجود بود و HTTP، آزمون و SQLite را بدون نصب package فراهم می‌کرد.</td><td>Framework اضافه لازم نبود؛ API مربوط به SQLite در Node 22 هنوز experimental است.</td></tr>
+            <tr><td>SQLite فایل‌محور</td><td>داده پس از راه‌اندازی مجدد می‌ماند و تراکنش واقعی دارد.</td><td>حافظه دوام ندارد؛ JSON نیازمند ساخت قفل و ثبت اتمیک است؛ PostgreSQL سرویس جدا می‌خواهد.</td></tr>
+            <tr><td>توکن تصادفی و نقش در دیتابیس</td><td>توکن هویت را مشخص می‌کند؛ نقش با هر عملیات دوباره خوانده می‌شود.</td><td>نقش داخل توکن خودبسنده می‌تواند کهنه شود. این نسخه ورود، انقضای توکن و بازیابی حساب ندارد.</td></tr>
+            <tr><td>تراکنش و شرط نسخه</td><td>خواندن مجوز، خواندن درخواست و ثبت تغییر یک ترتیب اتمیک دارند.</td><td>SQLite فقط یک نویسنده دارد؛ انتظار قفل می‌تواند event loop را متوقف کند.</td></tr>
+            <tr><td>ثابت‌ماندن محتوای در حال بررسی و تأییدشده</td><td>بازبین دربارهٔ همان نسخه‌ای تصمیم می‌گیرد که دیده است.</td><td>Snapshot، Hash یا نسخه‌های immutable برای تاریخچه/اجرای بعدی قابل بررسی‌اند؛ برای این محدوده لازم نبودند.</td></tr>
+            <tr><td>بررسی APIهای نسخهٔ موجود</td><td>امضای <code>DatabaseSync</code> و رفتار تراکنش از مستندات و پیاده‌سازی همان نسخه بررسی شد.</td><td>مثال قدیمی یا آرگومان حدسی می‌تواند کد ظاهراً درست ولی غیرقابل‌اجرا بسازد.</td></tr>
+            <tr><td>آزمون HTTP و دیتابیس واقعی</td><td>قرارداد بیرونی و اثر ذخیره‌سازی هر دو سنجیده می‌شوند.</td><td>Mock به‌تنهایی خرابی SQL، قفل یا رقابت دو اتصال را نشان نمی‌دهد.</td></tr>
+          </tbody></table>
+        </div>
+        <h3>چرا مدل داده فقط سه جدول دارد؟</h3>
+        <p><a href="../../specs/001-changeflow/data-model.md">مدل داده</a> به این نیازهای مشخص پاسخ می‌دهد:</p>
+        <ul>
+          <li><code>users</code>: هویت پایدار، فعال‌بودن و دو پرچم نقش. داشتن هر دو نقش یا هیچ نقش، حالت واقعی و قابل آزمون است.</li>
+          <li><code>tokens</code>: اثر انگشت SHA-256 توکن، شناسهٔ کاربر و وضعیت لغو. راز خام در دیتابیس ذخیره نمی‌شود؛ راز تصادفی هنگام ایجاد فقط یک بار تحویل داده می‌شود.</li>
+          <li><code>change_requests</code>: عنوان، شرح و دلیل از تمرین آمده‌اند؛ مالک و وضعیت برای مجوز/گردش لازم‌اند؛ شناسه برای مراجعهٔ بعدی و نسخه برای تشخیص تعارض است.</li>
+        </ul>
+        <p>زمان ایجاد و تغییر برای مشاهده و ترتیب فهرست‌اند. <code>feedback</code> همراه هویت و زمانِ آخرین برگشت، زمینهٔ اصلاح را نگه می‌دارد. <code>approvedBy</code>، <code>approvedAt</code> و <code>approvedVersion</code> نشان می‌دهند چه کسی، چه زمانی و کدام نسخه را بررسی کرده است. تاریخچهٔ همهٔ بازبینی‌ها نیاز این نسخه نبود؛ جدول تاریخچه ساخته نشد.</p>
+        <p>در دیتابیس، نقش‌ها فقط صفر/یک، وضعیت فقط یکی از چهار مقدار و نسخه عدد معتبر است. فیلدهای تأیید باید با هم کامل شوند و تأییدکننده با مالک متفاوت باشد. این قیدها دفاع اضافی در کنار قواعد Domain هستند. <code>STRICT</code> نوع ستون‌ها را محدود می‌کند و <code>PRAGMA user_version=1</code> نسخهٔ ساختار دیتابیس را ثبت می‌کند؛ این عدد با نسخهٔ هر درخواست فرق دارد.</p>
+        <h3>چرا قرارداد HTTP پیش از endpointها نوشته شد؟</h3>
+        <p><a href="../../specs/001-changeflow/contracts/http-api.md">قرارداد API</a> به مصرف‌کننده می‌گوید چه بفرستد و چه بگیرد. ایجاد با <code>POST /requests</code> فقط عنوان، شرح و دلیل می‌گیرد؛ مالک، نقش و وضعیت را مشتری تعیین نمی‌کند. تغییرها نسخه می‌خواهند؛ برگشت، بازخورد هم می‌خواهد.</p>
+        <pre><code>POST /requests/{id}/approve
+Authorization: Bearer &lt;issued-token&gt;
+Content-Type: application/json
+
+{ "version": 2 }</code></pre>
+        <p>این یک نمونهٔ آموزشی از شکل فرمان است. اگر بازبین مستقل مجاز باشد و درخواست هنوز در نسخهٔ ۲ و PendingReview باشد، نتیجه Approved با <code>version: 3</code> و <code>approvedVersion: 2</code> است. عملیات تأیید خودش یک تغییر است؛ به همین دلیل نسخهٔ خروجی یک واحد بیشتر از نسخهٔ بررسی‌شده است.</p>
+        <p>خطاها نیز قرارداد دارند: 401 برای هویت نامعتبر، 403 برای عمل غیرمجاز، 404 برای دادهٔ ناموجود یا نامرئی، 409 برای تعارض نسخه/وضعیت و 503 برای مشکل ذخیره‌سازی. شناسهٔ نامرئی مثل ناموجود پاسخ می‌گیرد تا وجود داده افشا نشود. پیام داخلی SQL یا توکن به پاسخ خطا راه پیدا نمی‌کند.</p>
+      </section>
+
+      <section id="tasks" aria-labelledby="tasks-title">
+        <h2 id="tasks-title">۸. Tasks و Analyze؛ تبدیل طراحی به کار قابل اجرا</h2>
+        <p><a href="../../specs/001-changeflow/tasks.md">فهرست اولیه</a> ۲۲ Task داشت. هر Task مسیر فایل، خروجی مورد انتظار و شناسهٔ نیاز مرتبط را مشخص می‌کرد. بعداً یک اصلاح واقعی با شناسهٔ T023 اضافه شد؛ شمار نهایی ۲۳ است.</p>
+        <ul>
+          <li><strong>T001–T002:</strong> اصول و اسناد طراحی آماده شوند و پیش از کد با هم بررسی شوند.</li>
+          <li><strong>T003–T006:</strong> ساختار برنامه، خطاها، جدول‌ها، تراکنش، قواعد ورودی/هویت و بستر آزمون ایجاد شوند.</li>
+          <li><strong>T007–T011:</strong> آزمون و پیاده‌سازی ثبت/ارسال، سپس بازبینی مستقل و اصلاح.</li>
+          <li><strong>T012–T017:</strong> مجوز و CLI، تعارض نسخه، دوام، خرابی ذخیره‌سازی و رقابت واقعی.</li>
+          <li><strong>T018–T022:</strong> بررسی معماری، Build/Demo، راهنمای اجرا، شواهد و تطبیق نهایی.</li>
+          <li><strong>T023:</strong> اصلاح ناسازگاری متن Unicode که در بازبینی کشف شد.</li>
+        </ul>
+        <p>T004 جدول‌ها و تراکنش را پیش از مصرف‌کننده‌هایشان می‌سازد. داستان‌های مختلف فایل‌های مشترکی مانند Domain و HTTP را تغییر می‌دهند؛ پس سری اجرا می‌شوند. فقط T018 و T019 علامت <code>[P]</code> دارند، چون آزمون مرزهای معماری و اسکریپت‌های Build/Demo فایل‌های جدا دارند. این علامت امکان اجرای موازی را بیان می‌کند، نه اثبات اینکه حتماً موازی اجرا شده‌اند.</p>
+        <h3>Analyze چه چیزی را بررسی کرد؟</h3>
+        <p><a href="../../specs/001-changeflow/reports/analyze.md">گزارش Analyze</a> سازگاری Spec، Plan و Tasks، پوشش نیازها، ترتیب وابستگی‌ها و ایمنی علامت‌های موازی را بررسی کرد. در آن دور ایراد قابل اقدام یافت نشد و همهٔ ۱۶ FR و ۵ SC به Task مرتبط بودند.</p>
+        <div class="note"><p><strong>این نتیجه چه چیزی را ثابت نمی‌کند؟</strong> پوشش ۲۱ از ۲۱ فقط وجود ارتباط نیاز و Task را نشان می‌دهد؛ هنوز کد ساخته نشده بود. Analyze در این نسخه خواندنی است: کد یا Task را خودش اصلاح نمی‌کند. گزارش آن بعد از بررسی، به‌عنوان سند تحویل ذخیره شد.</p></div>
+      </section>
+
+      <section id="code" aria-labelledby="code-title">
+        <h2 id="code-title">۹. Implement؛ یک درخواست تأیید از کجا عبور می‌کند؟</h2>
+        <p>در زمان اجرا کاربر یک endpoint می‌بیند، اما داخل برنامه چند مسئولیت جدا وجود دارد. این جداسازی برای رعایت Constitution است؛ هر فایل دلیل مشخصی دارد.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="مسئولیت فایل‌های اجرایی">
+          <table><thead><tr><th scope="col">فایل</th><th scope="col">چه می‌کند و چرا جداست؟</th></tr></thead><tbody>
+            <tr><td><a href="ChangeFlow/src/server.mjs"><code>server.mjs</code></a></td><td>دیتابیس، Application و HTTP را به هم وصل می‌کند و شروع/توقف سرور را مدیریت می‌کند. بستن اتصال‌ها برای آزمون دوام و توقف درست لازم است.</td></tr>
+            <tr><td><a href="ChangeFlow/src/http.mjs"><code>http.mjs</code></a></td><td>مسیر، روش، JSON، توکن Bearer و محدودیت حجم را می‌خواند؛ سرویس را صدا می‌زند و نتیجه/خطای معنایی را به HTTP تبدیل می‌کند. تصمیم تأیید در این فایل نیست.</td></tr>
+            <tr><td><a href="ChangeFlow/src/application.mjs"><code>application.mjs</code></a></td><td>مراحل یک کار را در تراکنش هماهنگ می‌کند: پیدا کردن هویت، یافتن درخواست قابل مشاهده، اجرای قاعده و ذخیره. این ترتیب بخشی از صحت عملیات است.</td></tr>
+            <tr><td><a href="ChangeFlow/src/domain.mjs"><code>domain.mjs</code></a></td><td>شکل ورودی، نقش، مالکیت، نسخه و وضعیت را بررسی و شیء نتیجه را می‌سازد. HTTP و SQL را نمی‌شناسد، پس قواعد وابسته به روش انتقال یا ذخیره نیستند.</td></tr>
+            <tr><td><a href="ChangeFlow/src/database.mjs"><code>database.mjs</code></a></td><td>ساخت جدول‌ها، SQL پارامتری، تبدیل نام فیلدها، قفل/تراکنش، شرط نسخه و ترجمهٔ خطای SQLite را نگه می‌دارد.</td></tr>
+            <tr><td><a href="ChangeFlow/src/errors.mjs"><code>errors.mjs</code></a></td><td>خطاهایی مانند <code>SelfReview</code> و <code>VersionConflict</code> را مستقل از HTTP تعریف می‌کند؛ نگاشت 403/409 به لایهٔ HTTP تعلق دارد.</td></tr>
+            <tr><td><a href="ChangeFlow/src/admin.mjs"><code>admin.mjs</code></a></td><td>کاربران نمونه، تغییر نقش، غیرفعال‌سازی و لغو توکن را برای اپراتور محلی فراهم می‌کند. این اختیار از دسترسی به فایل دیتابیس می‌آید و endpoint عمومی نیست.</td></tr>
+          </tbody></table>
+        </div>
+        <h3>مثال پیوسته: Bob درخواست Alice را تأیید می‌کند</h3>
+        <ol>
+          <li>HTTP بدنهٔ <code>{ "version": 2 }</code> و توکن Bob را دریافت و <code>service.change</code> را فراخوانی می‌کند.</li>
+          <li>Application تراکنش نوشتن را شروع می‌کند. <code>BEGIN IMMEDIATE</code> پیش از خواندن نقش و وضعیت، نوبت نوشتن را می‌گیرد.</li>
+          <li>Store اثر انگشت توکن را پیدا می‌کند؛ توکن لغوشده یا کاربر غیرفعال پذیرفته نمی‌شود. نقش فعلی Bob از همان دیتابیس خوانده می‌شود.</li>
+          <li>Application درخواست قابل مشاهده را می‌یابد. سپس Domain نقش Reviewer، تفاوت Bob و مالک، نسخهٔ ۲ و وضعیت PendingReview را بررسی می‌کند.</li>
+          <li>Domain وضعیت Approved، نسخهٔ ۳، هویت و زمان تأیید و نسخهٔ بررسی‌شدهٔ ۲ را در نتیجه قرار می‌دهد.</li>
+          <li>Store با شرط شناسه و نسخهٔ قبلی UPDATE می‌کند. باید دقیقاً یک ردیف تغییر کرده باشد؛ سپس COMMIT می‌شود.</li>
+          <li>پس از ثبت موفق، پاسخ HTTP 200 برمی‌گردد. در شکست، تراکنش برمی‌گردد و پاسخ خطا جای موفقیت را می‌گیرد.</li>
+        </ol>
+        <div class="note"><p><strong>چرا خواندن نقش هم داخل تراکنش است؟</strong> اگر ابتدا نقش را بیرون تراکنش بخوانیم، اپراتور می‌تواند آن را پیش از ثبت تأیید لغو کند. قرارگرفتن بررسی و ثبت زیر یک ترتیب تراکنشی، این فاصله را می‌بندد. لغوی که قبلاً ثبت شده دیده می‌شود؛ عملیات واقعاً هم‌زمان به ترتیب قفل اجرا می‌شوند.</p></div>
+        <h3>دو نفر با نسخهٔ قدیمی چه می‌کنند؟</h3>
+        <p>فرض کنید دو بازبین نسخهٔ ۲ را دیده‌اند. اولی تأیید می‌کند و نسخه ۳ می‌شود. دومی با نسخهٔ ۲ درخواست برگشت می‌فرستد. مقایسهٔ نسخه در Domain آن را رد می‌کند؛ شرط نسخه در UPDATE نیز یک محافظ در سطح ذخیره‌سازی است. پاسخ 409 یعنی ابتدا دادهٔ جدید را بخوان و دوباره تصمیم بگیر؛ تأیید نسخهٔ ندیده را خودکار تکرار نکن.</p>
+        <p>اگر قفل تا زمان مجاز آزاد نشود، پاسخ 503 است، نه تعارض نسخهٔ 409. این دو خطا دلیل متفاوت دارند: یکی امکان دسترسی فعلی به ذخیره‌سازی، دیگری کهنه‌بودن مبنای تصمیم است.</p>
+        <h3>چرا قانون مشاهده در query هم دیده می‌شود؟</h3>
+        <p><code>canRead</code> در Domain دسترسی جزئیات را کنترل می‌کند. query فهرست، همان شرط را پیش از صفحه‌بندی اجرا می‌کند تا دادهٔ نامجاز وارد صفحه نشود. این تکرار کوچک در Plan آگاهانه ثبت شده و آزمون‌های مشاهده/صفحه‌بندی آن را پوشش می‌دهند. برای دو نقش، یک سامانهٔ عمومی ساخت query به پروژه اضافه نشد.</p>
+      </section>
+
+      <section id="tests" aria-labelledby="tests-title">
+        <h2 id="tests-title">۱۰. چرا این ۳۹ آزمون نوشته شدند؟</h2>
+        <p>شش آزمون حداقلی را خود تمرین خواسته بود: ایجاد Draft، Submit، منع تأیید خود، تأیید مستقل، منع ویرایش Approved و رد نسخهٔ قدیمی. آزمون‌های دیگر از خطرهای مشخصِ تصمیم‌های طراحی آمده‌اند؛ مثل لغو نقش، قفل دیتابیس یا تغییر متن هنگام ذخیره.</p>
+        <p><a href="ChangeFlow/tests/helpers/fixture.mjs"><code>fixture.mjs</code></a> برای هر آزمون یک دیتابیس فایل‌محور موقت، کاربران با توکن تصادفی و یک سرور HTTP واقعی می‌سازد. تابع <code>saved</code> از یک اتصال تازه داده را می‌خواند. بنابراین مقایسهٔ قبل/بعد از شیء داخل حافظهٔ سرویس استفاده نمی‌کند.</p>
+        <blockquote>در آزمون تأیید درخواست خود، فقط انتظار 403 کافی نیست. ابتدا ردیف ذخیره‌شده خوانده می‌شود، عملیات انجام می‌شود و سپس تمام ردیف دوباره با مقدار قبلی مقایسه می‌شود؛ حتی نسخه، زمان و metadata نباید تغییر کرده باشند.</blockquote>
+        <p>جدول‌های زیر به ترتیب آزمون‌های هر فایل‌اند. شماره‌ها فقط برای خواندن این راهنما هستند؛ شناسه‌های FR در نام آزمون‌های واقعی، اتصال به Spec را فراهم می‌کنند.</p>
+
+        <details open>
+          <summary>گردش کار — ۸ آزمون در workflow.test.mjs</summary>
+          <p><a href="ChangeFlow/tests/workflow.test.mjs">خواندن فایل آزمون گردش کار</a></p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="آزمون‌های گردش کار">
+            <table><thead><tr><th scope="col">سناریو</th><th scope="col">چرا لازم است و چه می‌سنجد؟</th></tr></thead><tbody>
+              <tr><td>۱. ایجاد Draft</td><td>مالک باید از هویت واقعی بیاید؛ پاسخ 201، نسخهٔ ۱، Location و متن/وضعیت ذخیره‌شده بررسی می‌شوند.</td></tr>
+              <tr><td>۲. ویرایش و Submit مالک</td><td>مسیر عادی آماده‌سازی باید کار کند؛ عنوان جدید و افزایش نسخه پس از ویرایش و ارسال در DB دیده می‌شوند.</td></tr>
+              <tr><td>۳. خودبازبینی کاربر دو نقشی</td><td>داشتن Reviewer نباید منع تأیید یا برگشت به خود را دور بزند؛ هر دو 403 و بدون تغییر ردیف هستند.</td></tr>
+              <tr><td>۴. تأیید بازبین مستقل</td><td>ردکردن همهٔ تأییدها راه‌حل نیست؛ تأیید معتبر باید با هویت، زمان و نسخهٔ بررسی‌شده ثبت شود.</td></tr>
+              <tr><td>۵. نهایی‌بودن Approved</td><td>ویرایش، ارسال، تأیید مجدد و برگشت همگی رد شوند و تمام ردیف ثابت بماند.</td></tr>
+              <tr><td>۶. چرخهٔ اصلاح کامل</td><td>برگشت، ویرایش، ارسال مجدد و تأیید به هم متصل باشند؛ محتوای اصلاح‌شده و نسخهٔ درست تأیید ذخیره شوند.</td></tr>
+              <tr><td>۷. بازخورد نامعتبر و ویرایش PendingReview</td><td>برگشت بی‌دلیل و تغییر متن حین بررسی پذیرفته نشوند و اثری در DB نگذارند.</td></tr>
+              <tr><td>۸. تلاش مالک دو نقشی روی Draft</td><td>وجود پیش‌نویس هم مجوز خودتأییدی نمی‌دهد؛ تلاش با 403 و ردیف بدون تغییر تمام می‌شود.</td></tr>
+            </tbody></table>
+          </div>
+        </details>
+
+        <details>
+          <summary>هویت، دسترسی و ورودی — ۱۲ آزمون در security.test.mjs</summary>
+          <p><a href="ChangeFlow/tests/security.test.mjs">خواندن فایل آزمون دسترسی و ورودی</a></p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="آزمون‌های دسترسی و ورودی">
+            <table><thead><tr><th scope="col">سناریو</th><th scope="col">چرا لازم است و چه می‌سنجد؟</th></tr></thead><tbody>
+              <tr><td>۱. اعتبارنامهٔ غایب/جعلی/بدشکل</td><td>هدرهای ساختگی نام کاربر و نقش نباید هویت ایجاد کنند؛ خواندن/ایجاد نامعتبر 401 می‌گیرند.</td></tr>
+              <tr><td>۲. دامنهٔ مشاهده</td><td>Requester فقط دادهٔ خود، Reviewer فقط غیر Draft و کاربر دو نقشی اجتماع مجاز را ببیند؛ دادهٔ نامرئی 404 است.</td></tr>
+              <tr><td>۳. صفحه‌بندی</td><td>صفحه‌ها ترتیب ثابت و دادهٔ مجاز داشته باشند؛ مقدار خارج از حد، فیلد ناشناخته و کلید تکراری رد شوند.</td></tr>
+              <tr><td>۴. لغو و بازگرداندن نقش</td><td>با همان توکن، حذف نقش تصمیم بعدی را متوقف کند؛ بازگرداندن نقش اثر کند. توکن نقش را در خود ثابت نکرده است.</td></tr>
+              <tr><td>۵. لغو توکن و غیرفعال‌سازی</td><td>هر دو از استفادهٔ بعدی جلوگیری کنند و دادهٔ درخواست تغییر نکند.</td></tr>
+              <tr><td>۶. مشاهده در برابر اختیار عمل</td><td>دیدن درخواست دیگری حق ویرایش/ارسال نمی‌دهد؛ مالک بدون نقش فعلی Requester نیز حق ارسال ندارد.</td></tr>
+              <tr><td>۷. شکل و طول محتوا</td><td>مالک/وضعیت/نقش جعلی، مقدار خالی، نوع غلط، طول زیاد و NUL رد شوند؛ عنوان ۲۰۰ ایموجی معتبر پذیرفته شود.</td></tr>
+              <tr><td>۸. نسخهٔ ورودی</td><td>نسخهٔ غایب، صفر، منفی، کسری، رشته‌ای و عدد نامطمئن رد شود و هیچ metadata تغییر نکند.</td></tr>
+              <tr><td>۹. قرارداد انتقال</td><td>JSON خراب، نوع محتوا، حجم بیشتر از ۶۴ KiB و شناسهٔ نامعتبر پاسخ مشخص بگیرند.</td></tr>
+              <tr><td>۱۰. مسیر و روش</td><td>DELETE پنهانی وجود نداشته باشد؛ روش نامجاز 405 با Allow و مسیر ناشناخته 404 بگیرد.</td></tr>
+              <tr><td>۱۱. Unicode نامعتبر</td><td>متنی که هنگام ذخیره عوض می‌شود از ابتدا رد شود؛ ایجاد، ویرایش و بازخورد پوشش داده شوند و ردیف تغییر نکند.</td></tr>
+              <tr><td>۱۲. فارسی و ایموجی معتبر</td><td>اصلاح امنیتی نباید متن درست را خراب کند؛ پاسخ، خواندن بعدی و متن ذخیره‌شده بعد از trim یکسان بمانند.</td></tr>
+            </tbody></table>
+          </div>
+        </details>
+
+        <details>
+          <summary>دوام و هم‌زمانی — ۱۳ آزمون در persistence.test.mjs</summary>
+          <p><a href="ChangeFlow/tests/persistence.test.mjs">خواندن فایل آزمون ذخیره‌سازی و رقابت</a></p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="آزمون‌های دوام و هم‌زمانی">
+            <table><thead><tr><th scope="col">سناریو</th><th scope="col">چرا لازم است و چه می‌سنجد؟</th></tr></thead><tbody>
+              <tr><td>۱. ویرایش با نسخهٔ قدیمی</td><td>تغییر تازه‌تر نباید بی‌صدا از دست برود؛ پاسخ تعارض و محتوای جدیدِ دست‌نخورده بررسی می‌شوند.</td></tr>
+              <tr><td>۲. Submit و فرمان تکراری</td><td>مصرف دوبارهٔ همان نسخه نباید دوباره تغییر اعمال کند؛ تمام فیلدهای ذخیره‌شده ثابت می‌مانند.</td></tr>
+              <tr><td>۳. تأیید محتوای ندیده پس از اصلاح</td><td>بازبین با نسخهٔ دور قبلی نتواند متن اصلاح‌شده را تأیید کند.</td></tr>
+              <tr><td>۴. ایجاد تکراری</td><td>قرارداد A5 اجرا شود: دو ایجاد، دو شناسهٔ مستقل دارند.</td></tr>
+              <tr><td>۵. اتصال برنامهٔ تازه</td><td>درخواست و اعتبارنامه فقط در حافظهٔ اتصال قبلی نباشند؛ اتصال تازه آن‌ها را بخواند.</td></tr>
+              <tr><td>۶. شکست واقعی نوشتن SQL</td><td>خرابی دیتابیس باید 503 بدهد، اطلاعات داخلی افشا نشود و ثبت ناقص رخ ندهد.</td></tr>
+              <tr><td>۷. Rollback پس از یک دستور موفق</td><td>شکست انتهای تراکنش باید اثر دستور قبلاً اجراشده را هم برگرداند.</td></tr>
+              <tr><td>۸. محافظ نسخه در خود SQL</td><td>حتی فراخوانی مستقیم لایهٔ ذخیره‌سازی با نسخهٔ کهنه به VersionConflict برسد.</td></tr>
+              <tr><td>۹. قفل توسط نویسندهٔ دیگر</td><td>انتظار محدود به StorageBusy/503 برسد؛ بعد از آزادشدن قفل، فرمان معتبر کار کند.</td></tr>
+              <tr><td>۱۰. دو تصمیم HTTP</td><td>از تأیید و برگشت بر یک نسخه، یکی 200 و دیگری 409 بگیرد؛ ردیف نهایی متعلق به برنده باشد.</td></tr>
+              <tr><td>۱۱. دو Worker مستقل</td><td>رقابت به دو اتصال واقعاً مستقل برسد؛ یک برنده و metadata سازگار، بدون ترکیب دو تصمیم، ذخیره شود.</td></tr>
+              <tr><td>۱۲. لغو نقش پیش از آزادشدن Worker</td><td>عملیاتی که منتظر شروع بوده، پس از لغو ثبت‌شده دیگر با نقش قدیمی موفق نشود.</td></tr>
+              <tr><td>۱۳. قفل تراکنش عمل در برابر تغییر نقش</td><td>نویسندهٔ دیگر نتواند میان خواندن نقش و پایان تراکنش وارد شود؛ بعد از پایان بتواند نقش را تغییر دهد.</td></tr>
+            </tbody></table>
+          </div>
+          <p><a href="ChangeFlow/tests/helpers/race-worker.mjs"><code>race-worker.mjs</code></a> به هر Worker یک اتصال جدا می‌دهد و با مانع شروع مشترک آن‌ها را آمادهٔ رقابت می‌کند. چون Store همگام است، صرف <code>Promise.all</code> روی یک اتصال، رقابت مستقل دیتابیس را ثابت نمی‌کرد.</p>
+        </details>
+
+        <details>
+          <summary>فرمان‌های اپراتور — ۳ آزمون در cli.test.mjs</summary>
+          <p><a href="ChangeFlow/tests/cli.test.mjs">خواندن فایل آزمون CLI</a></p>
+          <ol>
+            <li><strong>ایجاد اولیهٔ واقعی:</strong> فرایند CLI اجرا می‌شود، چهار توکن متمایز صادر می‌کند، فقط digest در DB است و اجرای مجدد seed روی کاربران موجود خطا می‌دهد. این کار مانع بازنشانی ناخواستهٔ دسترسی‌های لغوشده می‌شود.</li>
+            <li><strong>اثر بر API روشن:</strong> نقش/توکن/فعال‌بودن با فرایند CLI تغییر می‌کند و همان سرورِ در حال اجرا نتیجهٔ جدید را می‌بیند؛ نیاز به restart برای تازه‌شدن مجوز نیست.</li>
+            <li><strong>ورودی اپراتور:</strong> فرمان، آرگومان، نقش یا کاربر نامعتبر با exit code خطا تمام می‌شود؛ اشتباه تایپی نباید تغییر دسترسی ناخواسته ایجاد کند.</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>مرزهای معماری — ۳ آزمون در architecture.test.mjs</summary>
+          <p><a href="ChangeFlow/tests/architecture.test.mjs">خواندن فایل آزمون معماری</a></p>
+          <ol>
+            <li>Domain فقط خطای معنایی را import کند و به انتقال یا ذخیره‌سازی وابسته نشود.</li>
+            <li>Application و Persistence به HTTP وابسته نشوند؛ Application نیز مستقیماً <code>node:sqlite</code> را وارد نکند.</li>
+            <li>HTTP فقط از انتقال و خطاهای معنایی استفاده کند و Domain/Store را مستقیم import نکند.</li>
+          </ol>
+          <p>این آزمون‌ها importها را بررسی می‌کنند؛ معنی هر شرط را نمی‌فهمند. بنابراین برای تشخیص اینکه منطق کسب‌وکار واقعاً کجا قرار دارد، بازبینی سورس جدا انجام شد.</p>
+        </details>
+        <div class="note"><p><strong>جمع:</strong> ۸ گردش کار + ۱۲ دسترسی/ورودی + ۱۳ دوام/هم‌زمانی + ۳ CLI + ۳ معماری = ۳۹ آزمون. این تعداد شمار تست‌های ثبت‌شده است؛ حلقه‌های داخل هر تست ممکن است چند ورودی یا چند عملیات را بررسی کنند.</p></div>
+      </section>
+
+      <section id="evidence" aria-labelledby="evidence-title">
+        <h2 id="evidence-title">۱۱. Build و Validation؛ خروجی واقعی را نگه داریم</h2>
+        <p>JavaScript این پروژه مستقیماً اجرا می‌شود و مرحلهٔ transpilation ندارد. پس Build معنای روشن و محدودی دارد: syntax-check هفت فایل اجرایی و ساخت پوشهٔ قابل اجرای <code>dist</code>.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="اسکریپت‌های ساخت و شواهد">
+          <table><thead><tr><th scope="col">اسکریپت</th><th scope="col">چرا نوشته شد؟</th></tr></thead><tbody>
+            <tr><td><a href="ChangeFlow/scripts/build.mjs"><code>build.mjs</code></a></td><td>هفت ماژول را از نظر نحو بررسی و به dist کپی می‌کند؛ package قابل اجرا می‌سازد. فقط مسیر خروجی تولیدشدهٔ همین پروژه را جایگزین می‌کند.</td></tr>
+            <tr><td><a href="ChangeFlow/scripts/demo.mjs"><code>demo.mjs</code></a></td><td>از خود dist برنامه را اجرا می‌کند تا معلوم شود بستهٔ تحویلی کار می‌کند؛ گردش کامل، خطاهای حساس و بستن همهٔ اتصال‌ها/شروع مجدد را می‌سنجد.</td></tr>
+            <tr><td><a href="ChangeFlow/scripts/validate.mjs"><code>validate.mjs</code></a></td><td>Build، پنج فایل آزمون و Demo را به ترتیب اجرا و stdout/stderr، exit code، زمان، نسخهٔ runtime و fingerprint فایل‌ها را ثبت می‌کند؛ بعد از شکست ادامه را موفق جا نمی‌زند.</td></tr>
+          </tbody></table>
+        </div>
+        <h3>چرا فقط «تست‌ها پاس شدند» ننوشته‌ایم؟</h3>
+        <p>در <a href="ChangeFlow/evidence/final-summary.json"><code>final-summary.json</code></a> فرمان دقیق، تعداد pass/fail/skip، Node <code>v22.23.4</code>، SQLite <code>3.53.4</code> و Windows x64 ثبت شده‌اند. SHA-256 فایل‌های کد، تست، اسکریپت و package مشخص می‌کند شاهد به کدام بایت‌های سورس مربوط بوده است؛ تغییر بعدی کد نیازمند شاهد متناسب است.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="نتایج ثبت‌شده">
+          <table><thead><tr><th scope="col">نوبت</th><th scope="col">نتیجهٔ واقعی</th><th scope="col">معنای نتیجه</th></tr></thead><tbody>
+            <tr><td>آزمون‌های اولیهٔ ایجاد/ارسال</td><td>۲ شکست پیش از پیاده‌سازی؛ سپس ۲ موفق</td><td>رفتار مورد انتظار پیش از تکمیل آن slice اجرا شد.</td></tr>
+            <tr><td>افزودن قواعد بازبینی</td><td>۸ تست: ۳ موفق و ۵ شکست پیش از تکمیل قواعد</td><td>رفتارهای از قبل موجود ممکن است فوراً موفق شوند؛ نباید شکست ساختگی گزارش کرد.</td></tr>
+            <tr><td>اجرای کامل اولیه</td><td>Build و Demo موفق؛ ۳۷ از ۳۷ تست موفق</td><td>هنوز بازبینی سورس می‌توانست خطایی خارج از پوشش پیدا کند.</td></tr>
+            <tr><td>بازتولید ایراد Unicode</td><td>۲ تست: ۱ موفق و ۱ شکست</td><td>اشکال با رفتار واقعی نشان داده شد؛ فقط حدس بازبین نبود.</td></tr>
+            <tr><td>اجرای کامل نهایی</td><td>Build موفق؛ ۳۹ از ۳۹ موفق، بدون skip؛ Demo موفق</td><td>اصلاح همراه با کل رفتارهای قبلی دوباره اجرا شد.</td></tr>
+          </tbody></table>
+        </div>
+        <p>در ابتدای کار محدودیت sandbox مانع ساخت فرایندهای آزمون شد؛ این شکستِ راه‌اندازی بود، نه شکست قاعدهٔ محصول. runner با حالت بدون جداسازی فرایند اجرا شد؛ آزمون‌های Worker همچنان اتصال مستقل دارند. برای CLI و Build که فرایند واقعی لازم داشتند، مجوز محدود اجرا گرفته شد. یک شکست پاک‌سازی فایل موقت در Windows هم با retry محدود حل شد. این تفاوت‌ها در <a href="../../specs/001-changeflow/reports/validation.md">گزارش Validation</a> روشن‌اند.</p>
+        <p>خروجی‌های نهایی: <a href="ChangeFlow/evidence/final-build.txt">Build</a>، <a href="ChangeFlow/evidence/final-test.txt">Test</a> و <a href="ChangeFlow/evidence/final-demo.txt">Demo</a>. هشدار experimental بودن SQLite پنهان نشده است. آمار این بخش از اجرای ثبت‌شدهٔ بخش عملی آمده؛ نوشتن این راهنما اجرای دوبارهٔ تست‌ها محسوب نمی‌شود.</p>
+      </section>
+
+      <section id="converge" aria-labelledby="converge-title">
+        <h2 id="converge-title">۱۲. چرخهٔ واقعی بازبینی: چرا بعد از ۳۷ تست متوقف نشدیم؟</h2>
+        <p>بازبینی سورس در دو محور انجام شد: انطباق با اصول و معماری، و انطباق با نیازمندی تمرین. هر دو به یک ایراد رسیدند: رشته‌ای با surrogate جفت‌نشده، مثلاً نمایش JSONِ <code>"&#92;ud800"</code>، از ورودی عبور می‌کرد. پاسخ موفق همان رشته را نشان می‌داد، اما SQLite هنگام تبدیل متن آن را با نویسهٔ جایگزین <code>�</code> ذخیره می‌کرد.</p>
+        <p>این با اصل «موفقیت یعنی محتوای درست و پایدار ثبت شده» سازگار نبود. تمام ۳۷ تست قبلی می‌توانستند موفق باشند، چون این ورودی را بررسی نکرده بودند.</p>
+        <ol>
+          <li><strong>Review:</strong> مشکل در <a href="../../specs/001-changeflow/reports/review.md">گزارش بازبینی</a> ثبت شد؛ بازبین‌های سورس ادعای اجرای تست نکردند.</li>
+          <li><strong>Converge، دور اول:</strong> شکاف F1 به نیازهای FR-011/012 و اصل دوام وصل شد و فقط Task تازهٔ T023 به انتهای Tasks اضافه شد. کد در این مرحله اصلاح نشد.</li>
+          <li><strong>Implement:</strong> دو تست جدید پیش از اصلاح اجرا شدند؛ تست متن نامعتبر شکست خورد و تست متن معتبر موفق شد. خروجی بازتولید در فایل‌های <code>unicode-red-*</code> محفوظ است.</li>
+          <li><strong>اصلاح:</strong> کنترل <code>String.isWellFormed()</code> به اعتبارسنج مشترک Domain اضافه شد. ایجاد، ویرایش و بازخورد همگی از این مسیر می‌گذرند؛ قرارداد ورودی هم صریح‌تر شد.</li>
+          <li><strong>اعتبارسنجی دوباره:</strong> کل ۳۹ تست، Build و Demo موفق شدند. بازبینی هدفمند سورس نیز پوشش اصلاح را تأیید کرد.</li>
+          <li><strong>Converge، دور دوم:</strong> کد با ۱۶ FR، پنج SC، ۱۶ سناریو، تصمیم‌های طراحی و اصول تطبیق داده شد؛ مورد اجراییِ بازی در محدودهٔ تمرین پیدا نشد و Task دیگری اضافه نشد.</li>
+        </ol>
+        <p><a href="../../specs/001-changeflow/reports/converge.md">گزارش Converge</a> حتی ثبت می‌کند که در دور دوم فایل Tasks حین ارزیابی تغییر نکرده است. ذخیرهٔ گزارش و بستن Task تحویل بعد از آن بررسی انجام شده‌اند؛ گزارش‌نویسی با اختیار تغییر کد توسط Converge اشتباه نشده است.</p>
+        <div class="note"><p><strong>مرز نتیجه:</strong> Build آماده‌شدن بسته، Test سنجش سناریوهای نوشته‌شده و Validation مجموعهٔ شواهد انطباق است. Acceptance تصمیم مدرس یا مالک واجد اختیار است. نتیجهٔ «در ارزیابی نهایی شکاف اجرایی پیدا نشد» به معنی پذیرش انسانی یا تضمین نبود هر نوع باگ نیست.</p></div>
+        <h3>سه نمونهٔ زنجیرهٔ قابل ردیابی</h3>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="زنجیره نیاز تا شاهد">
+          <table><thead><tr><th scope="col">نیاز</th><th scope="col">طراحی و کار</th><th scope="col">کد و شاهد</th></tr></thead><tbody>
+            <tr><td>FR-006: منع تأیید خود</td><td>مقایسهٔ هویت در Domain؛ T010–T011</td><td><code>applyChange</code>؛ تست کاربر دو نقشی و مقایسهٔ تمام ردیف ذخیره‌شده.</td></tr>
+            <tr><td>FR-010: عدم بازنویسی کهنه</td><td>نسخه، تراکنش و UPDATE مشروط؛ T015–T017</td><td>مقایسه در Domain و CAS در Store؛ تست stale edit، SQL و Worker مستقل.</td></tr>
+            <tr><td>FR-011/012: صحت متن پایدار</td><td>شکاف F1 و Task اصلاحی T023</td><td>اعتبارسنج مشترک؛ بازتولید شکست، رد Unicode نامعتبر و حفظ متن فارسی/ایموجی.</td></tr>
+          </tbody></table>
+        </div>
+        <p>نگاشت کامل نیازها در <a href="../../specs/001-changeflow/reports/traceability.md">Traceability</a> است. فایدهٔ این زنجیره هنگام تغییر نیاز آشکار می‌شود: می‌توان فهمید کدام تصمیم، کد و شاهد باید دوباره بررسی شود.</p>
+      </section>
+
+      <section id="files" aria-labelledby="files-title">
+        <h2 id="files-title">۱۳. فایل‌های تکمیلی؛ هیچ‌کدام صرفاً برای پرکردن پوشه نیستند</h2>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="راهنمای فایل‌های تکمیلی">
+          <table><thead><tr><th scope="col">فایل یا پوشه</th><th scope="col">نقش و دلیل محتوا</th></tr></thead><tbody>
+            <tr><td><a href="../../specs/001-changeflow/checklists/requirements.md">چک‌لیست نیازمندی</a></td><td>کیفیت خود Spec را پیش از کدنویسی بررسی می‌کند: وضوح، آزمون‌پذیری، مرز مسئله و فرض‌ها. این فایل تست نرم‌افزار نیست.</td></tr>
+            <tr><td><a href="../../specs/001-changeflow/quickstart.md">Quickstart</a></td><td>مسیر کوتاه شروع برای کسی است که اسناد قابلیت را می‌خواند؛ جزئیات عملی بیشتر در README برنامه آمده است.</td></tr>
+            <tr><td><a href="ChangeFlow/package.json"><code>package.json</code></a></td><td>حداقل Node، حالت ماژول و فرمان‌های start/seed/build/test/demo/validate را یک‌جا تعریف می‌کند؛ وابستگی خارجی ندارد.</td></tr>
+            <tr><td><a href="ChangeFlow/.gitignore"><code>.gitignore</code></a></td><td>خروجی dist، دادهٔ محلی SQLite، فایل‌های محیطی و پوشه‌های تولیدشده را از تحویل سورس جدا می‌کند.</td></tr>
+            <tr><td><a href="ChangeFlow/README.md">README برنامه</a></td><td>پیش‌نیاز، اجرای واقعی، نمونهٔ درخواست، نقش کاربران، تصمیم‌های اصلی و محدودیت‌ها را برای استفاده‌کننده گردآوری می‌کند.</td></tr>
+            <tr><td><a href="descriptive-answers/session-01.md">پاسخ‌های تشریحی</a></td><td>متن نهایی پاسخ هر پنج سؤال در یک مرجع است. فایل قدیمی داخل <code>ChangeFlow/docs/answers</code> فقط به همین مرجع هدایت می‌کند.</td></tr>
+            <tr><td><a href="../../specs/001-changeflow/reports/">Reports</a></td><td>Init زمینهٔ شروع، Analyze کیفیت نقشه، Review یافته‌های سورس، Validation اجرای واقعی، Traceability نگاشت نیاز و Converge فاصلهٔ کد تا هدف را ثبت می‌کنند.</td></tr>
+            <tr><td><a href="ChangeFlow/evidence/">Evidence</a></td><td>خروجی خام initial/final و بازتولید شکست را نگه می‌دارد؛ امکان مراجعه به فرمان و نتیجهٔ واقعی را فراهم می‌کند.</td></tr>
+          </tbody></table>
+        </div>
+        <p>گزارش‌های اولیه بخشی از سابقه‌اند. مثلاً گزارش Analyze از ۲۲ Task و Constitution ۱٫۰٫۰ حرف می‌زند، چون همان‌ها در زمان آن بررسی وجود داشتند؛ بعداً T023 و ویرایش مستندی مسیرها اضافه شده‌اند. سابقه را نباید طوری بازنویسی کرد که انگار اصلاح از ابتدا وجود داشته است.</p>
+      </section>
+
+      <section id="run" aria-labelledby="run-title">
+        <h2 id="run-title">۱۴. حالا چگونه از این پروژه استفاده کنیم؟</h2>
+        <p>پیش‌نیاز ثبت‌شده Node.js نسخهٔ 22.16 یا جدیدتر است؛ نسخهٔ واقعاً آزموده‌شده 22.23.4 روی Windows x64 بوده است. package یا سرویس دیتابیس جدا نصب نمی‌شود. فرمان‌های زیر را از ریشهٔ مخزن اجرا کنید:</p>
+        <pre><code>cd Session01/Assignments/ChangeFlow
+npm.cmd run build
+npm.cmd test
+npm.cmd run demo</code></pre>
+        <p>در Bash از <code>npm</code> به‌جای <code>npm.cmd</code> استفاده کنید. Demo خودش دیتابیس موقت و کاربران را می‌سازد و پاک می‌کند؛ Build باید پیش از آن اجرا شده باشد.</p>
+        <p>برای یک نوبت شاهد جدید، نام جدا بدهید تا گزارش تحویل قبلی جایگزین نشود:</p>
+        <pre><code>node scripts/validate.mjs my-run</code></pre>
+        <p>برای کار دستی با دادهٔ پایدار، <code>npm.cmd start</code> را اجرا کنید و در ترمینال دیگری، از همان پوشه، فقط بار اول فرمان زیر را بزنید. توکن‌ها در متغیر همان نشست قرار می‌گیرند؛ آن‌ها را وارد Git نکنید.</p>
+        <pre><code>$tokens = node src/admin.mjs init-demo | ConvertFrom-Json</code></pre>
+        <p>آدرس پیش‌فرض <code>http://127.0.0.1:3000</code> و فایل داده <code>data/changeflow.sqlite</code> است. Alice و Dana فقط Requester، Bob فقط Reviewer و Carol هر دو نقش را دارند. نمونهٔ کامل ارسال درخواست و تنظیم‌های <code>CHANGEFLOW_DB</code>، <code>PORT</code> و <code>HOST</code> در <a href="ChangeFlow/README.md">README برنامه</a> آمده است.</p>
+        <h3>اگر قرار شد قابلیت جدیدی اضافه کنیم</h3>
+        <p>فرض کنید جلسهٔ بعد «حذف Draft» خواسته شود. ابتدا فرض A1 و رفتار مجاز حذف در Spec روشن می‌شود: چه کسی، در چه وضعیتی و با چه اثر داده‌ای؟ سپس Plan، مدل/قرارداد، Taskهای وابسته و آزمون‌ها اصلاح می‌شوند. Analyze سازگاری اسناد را می‌سنجد؛ Implement تغییر را می‌سازد؛ اجرا و Converge تطابق نتیجه را بررسی می‌کنند.</p>
+        <p>این نسخه برای تمرین محلی است: SSO، انقضای توکن، rate limit، TLS termination، تاریخچهٔ کامل تصمیم‌ها، حذف و اجرای واقعی تغییر ندارد. ظرفیت تولیدی و عملکرد روی سیستم‌عامل‌های دیگر ادعا نشده‌اند. این مرزها مشخص می‌کنند توسعهٔ بعدی به چه نیازمندی تازه‌ای احتیاج دارد.</p>
+        <div class="note"><p><strong>پس از مطالعه باید بتوانید این مسیر را توضیح دهید:</strong> یک قاعدهٔ تمرین را انتخاب کنید، محل آن را در Spec نشان دهید، تصمیم طراحی و Task مرتبط را پیدا کنید، نقطهٔ اجرای آن در کد را بخوانید و به شاهد آزمون و بازبینی آن برسید. این ارتباط، دلیل گردآوری مجموعهٔ فایل‌های ChangeFlow است.</p></div>
+        <p class="back"><a href="#top">بازگشت به ابتدای راهنما</a></p>
+      </section>
+    </main>
+    <footer>
+      <p><a href="../../README.md">بازگشت به صفحهٔ اصلی مخزن</a> · <a href="ChangeFlow/README.md">راهنمای اجرای ChangeFlow</a> · <a href="descriptive-answers/session-01.md">پاسخ سؤالات تشریحی</a></p>
+      <p>این راهنما یک فایل مستقل است و برای خواندن متن به سرور نیاز ندارد. دریافت فونت Vazirmatn از Google Fonts به اینترنت نیاز دارد؛ در نبود اتصال، فونت جایگزین سیستم استفاده می‌شود.</p>
+    </footer>
+  </div>
+</body>
+</html>

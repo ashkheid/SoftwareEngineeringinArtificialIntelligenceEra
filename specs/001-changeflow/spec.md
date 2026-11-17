@@ -3,7 +3,7 @@
 **Feature context**: `001-changeflow` (Spec Kit directory; no Git branch created)
 **Created**: 2026-11-16
 **Status**: Implemented and technically validated; product assumptions remain reviewable
-**Input**: بخش دوم `Session01/Assignments/Assignment.md` و راهنماهای پنج HTML.
+**Input**: بخش دوم `Session01/Assignments/Assignment.md` و تحلیل‌های مفهومی در `Session01/Assignments/descriptive-answers/session-01.md`.
 
 ## Clarifications
 

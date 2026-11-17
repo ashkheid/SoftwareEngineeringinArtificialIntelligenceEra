@@ -36,7 +36,8 @@ AI, RAG, MCP, workflow engines, frontend and distributed services are outside th
 
 ## Scope and Constraints
 This constitution governs ChangeFlow and `specs/001-changeflow`, not the historical
-BlogSpecLab course samples. The assignment and five HTML analyses are the input sources.
+BlogSpecLab course samples. The assignment and the conceptual answers in
+`Session01/Assignments/descriptive-answers/session-01.md` are the input sources.
 Use existing Spec Kit 1.4.0/Codex integration; do not reinstall it. Implementation choices
 belong in plan/research; behavior and reviewable assumptions belong in the specification.
 
@@ -47,10 +48,13 @@ This task explicitly authorizes implementation, review and assignment build/test
 without intermediate approval. No publication, commit or push is implied.
 
 ## Governance
-This is version 1.0.0, adopted under the user's delegated authority on 2026-11-16, not a
+First adopted as version 1.0.0 under the user's delegated authority on 2026-11-16, not a
 claim of organizational or human acceptance. Changes must record rationale and affected
 specifications/tasks. Breaking principles require a major version, new principles a minor
 version, and wording corrections a patch. Review MUST identify exceptions explicitly;
 passing tests cannot waive a principle.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-16 | **Last Amended**: 2026-11-16
+Version 1.0.1 updates the input-document reference after organizing the assignment deliverables;
+the five principles and their meaning are unchanged.
+
+**Version**: 1.0.1 | **Ratified**: 2026-11-16 | **Last Amended**: 2026-11-16

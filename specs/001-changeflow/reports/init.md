@@ -3,7 +3,7 @@
 The existing checkout already contains Spec Kit **1.4.0**, Codex integration, PowerShell
 scripts, workflow/templates and all nine local speckit skills. Evidence:
 `.specify/init-options.json`, `.specify/integration.json`, `.specify/integrations/codex.manifest.json`.
-No init/install/upgrade was fabricated or performed. Existing staged setup and HTML files were preserved.
+No init/install/upgrade was fabricated or performed. Existing staged setup and user-authored analysis content were preserved.
 
 The unfilled `.specify/memory/constitution.md` was completed for ChangeFlow only. Core templates
 and historical sample projects were not changed. The feature is `specs/001-changeflow`;
@@ -17,8 +17,7 @@ the local execution policy. Re-ran the known repository scripts with process-onl
 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ...`; no persistent policy changed.
 No `.specify/extensions.yml` exists, so there were no hooks to dispatch.
 
-Skills used in order: speckit-constitution, speckit-specify, speckit-clarify (assumption scan under
-the user's no-confirmation instruction), speckit-plan, speckit-tasks, speckit-analyze,
+Skills used in order: speckit-constitution, speckit-specify, speckit-clarify, speckit-plan, speckit-tasks, speckit-analyze,
 speckit-implement and speckit-converge. Plan's bounded research delegation checked exact Node
 APIs and SQLite concurrency; it made no file edits. Product Multi-Agent features remain out of scope.
 Final reports are saved as delivery work after read-only Analyze/Converge assessments.

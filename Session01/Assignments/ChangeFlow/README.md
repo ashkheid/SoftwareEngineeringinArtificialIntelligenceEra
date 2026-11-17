@@ -1,7 +1,10 @@
 # ChangeFlow — پروژهٔ عملی جلسهٔ اول
 
 API مدیریت درخواست تغییر با **Node.js 22 + SQLite**، بدون وابستگی npm. این پوشه پاسخ
-بخش دوم [تمرین](../Assignment.md) است؛ فایل‌های نمونهٔ کلاس و پنج HTML اصلی دست‌نخورده‌اند.
+بخش دوم [تمرین](../Assignment.md) است؛ فایل‌های نمونهٔ کلاس دست‌نخورده‌اند.
+
+برای شناخت مسیر ساخت پروژه و دلیل محتوای هر سند، ماژول و آزمون،
+[راهنمای آموزشی ChangeFlow و Spec Kit](../changeflow-walkthrough.html) را بخوانید.
 
 ## اجرا در چند دقیقه
 
@@ -109,8 +112,8 @@ node src/admin.mjs deactivate alice
 
 - [Constitution](../../../.specify/memory/constitution.md)، [Spec و فرض‌ها](../../../specs/001-changeflow/spec.md)، [Plan](../../../specs/001-changeflow/plan.md)، [مدل داده](../../../specs/001-changeflow/data-model.md)، [Tasks](../../../specs/001-changeflow/tasks.md).
 - [Init](../../../specs/001-changeflow/reports/init.md)، [Analyze](../../../specs/001-changeflow/reports/analyze.md)، [Validation](../../../specs/001-changeflow/reports/validation.md)، [Traceability](../../../specs/001-changeflow/reports/traceability.md)، [Converge](../../../specs/001-changeflow/reports/converge.md).
-- [پاسخ‌های مفهومی و ارتباط با HTMLها](docs/answers/session-01.md)، [خروجی‌های خام اجرا](evidence/).
-- [مخزن موجود درس](https://github.com/oroumand/SoftwareEngineeringinArtificialIntelligenceEra). فایل‌های این تحویل در checkout محلی آماده‌اند؛ این کار commit/push یا انتشار نسخهٔ راه‌دور انجام نمی‌دهد.
+- [پاسخ نهایی سؤالات تشریحی](../descriptive-answers/session-01.md)، [خروجی‌های خام اجرا](evidence/).
+- [مخزن موجود درس](https://github.com/oroumand/SoftwareEngineeringinArtificialIntelligenceEra). خروجی بخش عملی در کامیت محلی `4831e00` ثبت شده است؛ انتشار این کامیت در مخزن راه‌دور انجام نشده است.
 
 Spec Kit 1.4.0 از قبل در ریشه نصب بود و همان skills/scripts استفاده شدند. برای ادامهٔ
 workflow در clone جدید، از ریشه `$env:SPECIFY_FEATURE_DIRECTORY = 'specs/001-changeflow'`
@@ -125,6 +128,6 @@ token expiry، rate limit، TLS termination و استقرار اینترنتی �
 ورودی‌ها و SQL با پارامتر پردازش می‌شوند، ولی دسترسی مستقیم اپراتور به فایل DB خارج از مرز API است.
 
 Codex اسناد، کد، آزمون‌ها و گزارش‌ها را تهیه کرده و با استفاده از مهارت‌ها دو محور معماری و
-انطباق با تمرین را بازبینی کرده است. پنج HTML مبنای تصمیم‌های معماری، فرض‌ها و تفاوت Validation
-با Acceptance بوده‌اند. فرض‌ها تصمیم تأییدشدهٔ سازمان نیستند؛ نتیجهٔ پذیرش مدرس/مالک محصول
+انطباق با تمرین را بازبینی کرده است. تحلیل سؤالات تشریحی مبنای تصمیم‌های معماری، فرض‌ها و تفاوت
+Validation با Acceptance بوده است. فرض‌ها تصمیم تأییدشدهٔ سازمان نیستند؛ نتیجهٔ پذیرش مدرس/مالک محصول
 نیز توسط Agent ادعا نمی‌شود. آمار معتبر اجرای نهایی در گزارش Validation و فایل‌های evidence است.

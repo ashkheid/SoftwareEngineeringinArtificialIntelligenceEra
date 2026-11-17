@@ -67,7 +67,9 @@ synchronous store would not establish independent database writers.
 Sensitive tests read persisted state through a new SQLite connection. Architecture checks inspect
 imports; source review separately assesses the meaning/location of policy. Human acceptance stays open.
 
-## HTML guidance applied
+## Conceptual guidance applied
+The complete conceptual answers are in
+[session-01.md](../../Session01/Assignments/descriptive-answers/session-01.md).
 1. Question 1: transport-independent policy and architecture review, Constitution I.
 2. Question 2: assumptions A1–A8 explicitly recorded; current roles and visibility are distinct.
 3. Question 3: business guarantee differs from ContentRevision; R5 compares alternatives.
